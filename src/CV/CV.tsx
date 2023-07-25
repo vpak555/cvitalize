@@ -5,7 +5,7 @@ import Default from '../templates/Default/Default';
 export default function CV() {
 
     return (
-        <MantineProvider>
+        <MantineProvider theme={{ fontFamily: 'Montserrat', primaryColor: 'teal' }}>
             <Paper withBorder id='cv'>
                 <Default />
             </Paper>

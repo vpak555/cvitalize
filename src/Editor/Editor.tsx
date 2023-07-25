@@ -5,6 +5,7 @@ import ProfessionalExperiencePanel from "./ProfExperiencePanel/ProfessionalExper
 import EducationPanel from "./EducationPanel/EducationPanel";
 import HardSkillsPanel from "./HardSkillsPanel/HardSkillsPanel";
 import SoftSkillsPanel from "./SoftSkillsPanel/SoftSkillsPanel";
+import PersonalDetailsPanel from "./PersonalDetailsPanel/PersonalDetailsPanel";
 
 
 export default function Editor() {
@@ -12,6 +13,7 @@ export default function Editor() {
   return (
     <Accordion variant="contained" miw={300}>
       <GeneralInfoPanel />
+      <PersonalDetailsPanel />
       <EducationPanel />
       <ProfessionalExperiencePanel />
       <HardSkillsPanel />

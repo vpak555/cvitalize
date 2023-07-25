@@ -10,23 +10,25 @@ export default function DndList({ list, onAdd, onDragEnd, onEdit, onRemove }: Dn
   const [state, handlers] = useListState(list);
 
   useDidUpdate(() => handlers.setState(list), [list]);
-  
+
   const items = state.map((item, index) => (
     <DndListItem key={item.id} item={item} index={index} onEdit={onEdit} onRemove={onRemove} />
   ));
 
   return (
-    <Flex direction='column' gap={10}>
-      {list.length > 0 &&
-        <DragDropContext
-          onDragEnd={({ destination, source }) => onDragEnd({ destination, source, handlers })}
-        >
-          <StrictModeDroppable items={items} />
-        </DragDropContext>
-      }
+    <>
+      <Flex direction='column' gap={10}>
+        {list.length > 0 &&
+          <DragDropContext
+            onDragEnd={({ destination, source }) => onDragEnd({ destination, source, handlers })}
+          >
+            <StrictModeDroppable items={items} />
+          </DragDropContext>
+        }
+      </Flex>
       <Group position='right' mt='md'>
         <Button type='button' leftIcon={<IconPlus />} onClick={onAdd}>Add</Button>
       </Group>
-    </Flex>
+    </>
   );
 }

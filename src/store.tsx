@@ -3,8 +3,9 @@ import GeneralInfoModel from "./models/GeneralInfoModel";
 import SkillModel from "./models/SkillModel";
 import ListItemModel from "./models/ListItemModel";
 import { mapToListItemArr, mapToListItem } from './utils/utils';
+import PersonalDetailsModel from "./models/PersonalDetailsModel";
 
-export const useGeneralInfo = create<{
+export const useGeneralInfoStore = create<{
     generalInfo: GeneralInfoModel;
     setGeneralInfo: (generalInfo: GeneralInfoModel) => void;
 }>((set) => ({
@@ -12,14 +13,25 @@ export const useGeneralInfo = create<{
         fullName: '',
         jobTitle: '',
         profile: '',
-        email: '',
-        phoneNumber: '',
-        address: '',
+        photo: '',
     },
     setGeneralInfo: (generalInfo: GeneralInfoModel) => set({ generalInfo }),
 }));
 
-export const useLanguages = create<{
+export const usePersonalDetailsStore = create<{
+    personalDetails: PersonalDetailsModel;
+    setPersonalDetails: (personalDetails: PersonalDetailsModel) => void;
+}>((set) => ({
+    personalDetails: {
+        email: '',
+        phoneNumber: '',
+        address: '',
+
+    },
+    setPersonalDetails: (personalDetails: PersonalDetailsModel) => set({ personalDetails }),
+}));
+
+export const useLanguagesStore = create<{
     showLanguageExpertise: boolean;
     editedLanguage: SkillModel | undefined;
     languages: SkillModel[];
@@ -65,7 +77,7 @@ export const useLanguages = create<{
     getLanguageById: (id: string) => get().languages.find(language => language.id == id)
 }));
 
-export const useHardSkills = create<{
+export const useHardSkillsStore = create<{
     showHardSkillExpertise: boolean;
     editedHardSkill: SkillModel | undefined;
     hardSkills: SkillModel[];
@@ -111,7 +123,7 @@ export const useHardSkills = create<{
     getHardSkillById: (id: string) => get().hardSkills.find(language => language.id == id)
 }));
 
-export const useSoftSkills = create<{
+export const useSoftSkillsStore = create<{
     showSoftSkillExpertise: boolean;
     editedSoftSkill: SkillModel | undefined;
     softSkills: SkillModel[];
@@ -157,7 +169,7 @@ export const useSoftSkills = create<{
     getSoftSkillById: (id: string) => get().softSkills.find(language => language.id == id)
 }));
 
-export const useLanguageForm = create<{
+export const useLanguageFormStore = create<{
     showLanguageForm: boolean;
     setShowLanguageForm: (showLanguageForm: boolean) => void;
 }>((set) => ({
@@ -165,7 +177,7 @@ export const useLanguageForm = create<{
     setShowLanguageForm: (showLanguageForm: boolean) => set({ showLanguageForm }),
 }));
 
-export const useHardSkillForm = create<{
+export const useHardSkillFormStore = create<{
     showHardSkillForm: boolean;
     setShowHardSkillForm: (showHardSkillForm: boolean) => void;
 }>((set) => ({
@@ -173,7 +185,7 @@ export const useHardSkillForm = create<{
     setShowHardSkillForm: (showHardSkillForm: boolean) => set({ showHardSkillForm }),
 }));
 
-export const useSoftSkillForm = create<{
+export const useSoftSkillFormStore = create<{
     showSoftSkillForm: boolean;
     setShowSoftSkillForm: (showSoftSkillForm: boolean) => void;
 }>((set) => ({

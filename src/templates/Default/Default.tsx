@@ -3,21 +3,21 @@ import HistoryDetail from "./HistoryDetail/HistoryDetail";
 import Section from "./Section/Section";
 import Skills from "./Skills/Skills";
 import './Default.scss';
-import { useGeneralInfo, useHardSkills, useLanguages, useSoftSkills } from "../../store";
+import { useGeneralInfoStore, useHardSkillsStore, useLanguagesStore, usePersonalDetailsStore, useSoftSkillsStore } from "../../store";
 import PersonalDetails from "./PersonalDetails/PersonalDetails";
 
 export default function Default() {
-    const { email, phoneNumber, address, profile, fullName, jobTitle } = useGeneralInfo((state) => state.generalInfo);
-    const { languages, showLanguageExpertise } = useLanguages((state) => state);
-    const { softSkills, showSoftSkillExpertise } = useSoftSkills((state) => state);
-    const { hardSkills, showHardSkillExpertise } = useHardSkills((state) => state);
-    const personalDetailsNotEmpty = email || address || phoneNumber;
+    const { profile, fullName, jobTitle } = useGeneralInfoStore((state) => state.generalInfo);
+    const { languages, showLanguageExpertise } = useLanguagesStore((state) => state);
+    const { softSkills, showSoftSkillExpertise } = useSoftSkillsStore((state) => state);
+    const { hardSkills, showHardSkillExpertise } = useHardSkillsStore((state) => state);
+    const { email, phoneNumber, address } = usePersonalDetailsStore((state) => state.personalDetails);
 
     return (
         <Flex className='cv'>
             <Flex className='cv__left-column' direction='column' gap={24}>
                 <Avatar src='public/me.jpg' radius={50} size={100} />
-                {personalDetailsNotEmpty && <Section title='Personal Details'>
+                {(email || phoneNumber || address) && <Section title='Personal Details'>
                     <PersonalDetails personalDetails={{ email, phoneNumber, address }} />
                 </Section>}
                 {hardSkills.length > 0 &&

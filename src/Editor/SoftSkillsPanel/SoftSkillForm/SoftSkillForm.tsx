@@ -1,13 +1,13 @@
 import { Box, Button, Flex, Group, Input, Rating, TextInput, useMantineTheme } from "@mantine/core";
 import { IconX, IconDeviceFloppy } from "@tabler/icons-react";
-import { useSoftSkills, useSoftSkillForm } from "../../../store";
+import { useSoftSkillsStore, useSoftSkillFormStore } from "../../../store";
 import { isNotEmpty, useForm } from "@mantine/form";
 import { useId } from "react";
 import SkillFormModel from "../../../models/SkillFormModel";
 
 export default function SoftSkillForm() {
-    const { showSoftSkillExpertise, addSoftSkill, editedSoftSkill, updateSoftSkill, setEditedSoftSkill } = useSoftSkills((state) => state);
-    const setShowSoftSkillForm = useSoftSkillForm((state) => state.setShowSoftSkillForm);
+    const { showSoftSkillExpertise, addSoftSkill, editedSoftSkill, updateSoftSkill, setEditedSoftSkill } = useSoftSkillsStore((state) => state);
+    const setShowSoftSkillForm = useSoftSkillFormStore((state) => state.setShowSoftSkillForm);
     const { primaryColor } = useMantineTheme();
     const id = useId();
     const initialValues =

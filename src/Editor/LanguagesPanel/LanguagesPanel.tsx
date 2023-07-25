@@ -1,7 +1,7 @@
 import { Switch } from "@mantine/core";
 import { ChangeEvent } from 'react';
 import DragEndModel from "../../models/DragEndModel";
-import { useLanguages, useLanguageForm } from "../../store";
+import { useLanguagesStore, useLanguageFormStore } from "../../store";
 import DndList from "../DndList/DndList";
 import LanguageForm from "./LanguageForm/LanguageForm";
 import { reorder } from "../../utils/utils";
@@ -9,9 +9,8 @@ import Panel from "../Panel/Panel";
 import SkillModel from "../../models/SkillModel";
 
 export default function LanguagesPanel() {
-    const { setShowLanguageExpertise } = useLanguages((state) => state);
-    const { showLanguageForm, setShowLanguageForm } = useLanguageForm((state) => state);
-    const { languages, dndLanguages, setLanguages, removeLanguage, setEditedLanguage, getLanguageById } = useLanguages((state) => state);
+    const { showLanguageForm, setShowLanguageForm } = useLanguageFormStore((state) => state);
+    const { languages, dndLanguages, setLanguages, removeLanguage, setEditedLanguage, getLanguageById, setShowLanguageExpertise } = useLanguagesStore((state) => state);
 
     const onShowLanguageExpertise = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.checked;
