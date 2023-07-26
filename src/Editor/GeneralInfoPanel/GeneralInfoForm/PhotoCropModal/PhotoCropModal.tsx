@@ -1,6 +1,6 @@
 import { ActionIcon, Box, Button, Flex, Group, Modal, ModalProps, Slider, Text } from "@mantine/core";
 import { IconDeviceFloppy, IconRotate2, IconRotateClockwise2 } from "@tabler/icons-react";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from 'react';
 import AvatarEditor from "react-avatar-editor";
 
 type Props = ModalProps & {
@@ -14,19 +14,24 @@ export default function PhotoCropModal({ image, opened, onClose, onSave }: Props
     const [zoom, setZoom] = useState(1);
 
     const rotationMarks = [
-        { value: -45, label: '-45' },
-        { value: -30, label: '-30' },
-        { value: -15, label: '-15' },
-        { value: 0, label: '0' },
-        { value: 15, label: '15' },
-        { value: 30, label: '30' },
-        { value: 45, label: '45' },
+        { value: -45, label: '-45°' },
+        { value: -30, label: '-30°' },
+        { value: -15, label: '-15°' },
+        { value: 0, label: '0°' },
+        { value: 15, label: '15°' },
+        { value: 30, label: '30°' },
+        { value: 45, label: '45°' },
     ];
 
     const zoomMarks = [
         { value: 1, label: 'x1' },
         { value: 3, label: 'x3' },
     ];
+
+    useEffect(() => {
+        setZoom(1);
+        setRotation(0);
+    }, [image]);
 
     const save = () => {
         if (editorRef) {
