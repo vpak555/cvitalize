@@ -2,9 +2,14 @@ import { Box, TextInput, Flex, Textarea, Group, Button, FileInput } from "@manti
 import { useForm } from '@mantine/form';
 import { useGeneralInfoStore } from "../../../store";
 import { IconDeviceFloppy } from "@tabler/icons-react";
+import PhotoCropModal from "./PhotoCropModal/PhotoCropModal";
+import { useDisclosure } from "@mantine/hooks";
+import { useState } from "react";
 
 export default function GeneralInfoForm() {
     const { generalInfo, setGeneralInfo } = useGeneralInfoStore((state) => state);
+    const [opened, { open, close }] = useDisclosure(false);
+    const [photo, setPhoto] = useState<File | null>(null);
 
     const minInputLength = 2;
     const maxInputLength = 100;
@@ -17,13 +22,25 @@ export default function GeneralInfoForm() {
         },
     });
 
+    const onPhotoChange = (file: File | null) => {
+        setPhoto(file);
+        open();
+    }
+
+    const onSave = (src: string) => {
+        setGeneralInfo({ ...generalInfo, photo: src });
+    }
+
     return (
         <Box>
+            {photo && <PhotoCropModal image={photo} opened={opened} onClose={close} onSave={onSave} />}
             <form onSubmit={form.onSubmit((values) => setGeneralInfo(values))}>
                 <Flex direction='column' gap={10}>
                     <FileInput
+                        accept="image/*"
                         placeholder="photo.jpg"
                         label="Photo"
+                        onChange={(file) => onPhotoChange(file)}
                     />
                     <TextInput
                         label='Full name'

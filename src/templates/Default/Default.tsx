@@ -7,7 +7,7 @@ import { useGeneralInfoStore, useHardSkillsStore, useLanguagesStore, usePersonal
 import PersonalDetails from "./PersonalDetails/PersonalDetails";
 
 export default function Default() {
-    const { profile, fullName, jobTitle } = useGeneralInfoStore((state) => state.generalInfo);
+    const { profile, fullName, jobTitle, photo } = useGeneralInfoStore((state) => state.generalInfo);
     const { languages, showLanguageExpertise } = useLanguagesStore((state) => state);
     const { softSkills, showSoftSkillExpertise } = useSoftSkillsStore((state) => state);
     const { hardSkills, showHardSkillExpertise } = useHardSkillsStore((state) => state);
@@ -16,7 +16,7 @@ export default function Default() {
     return (
         <Flex className='cv'>
             <Flex className='cv__left-column' direction='column' gap={24}>
-                <Avatar src='public/me.jpg' radius={50} size={100} />
+                {photo && <Avatar src={photo} radius={50} size={100} />}
                 {(email || phoneNumber || address) && <Section title='Personal Details'>
                     <PersonalDetails personalDetails={{ email, phoneNumber, address }} />
                 </Section>}
