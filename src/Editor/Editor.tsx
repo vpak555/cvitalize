@@ -11,7 +11,7 @@ import PersonalDetailsPanel from "./PersonalDetailsPanel/PersonalDetailsPanel";
 export default function Editor() {
 
   return (
-    <Accordion variant="contained" miw={300}>
+    <Accordion variant="contained" w={300}>
       <GeneralInfoPanel />
       <PersonalDetailsPanel />
       <EducationPanel />
