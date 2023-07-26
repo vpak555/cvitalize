@@ -1,7 +1,7 @@
 import { Box, TextInput, Flex, Textarea, Group, Button, FileInput } from "@mantine/core";
 import { useForm } from '@mantine/form';
 import { useGeneralInfoStore } from "../../../store";
-import { IconDeviceFloppy } from "@tabler/icons-react";
+import { IconDeviceFloppy, IconReload } from "@tabler/icons-react";
 import PhotoCropModal from "./PhotoCropModal/PhotoCropModal";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
@@ -34,7 +34,7 @@ export default function GeneralInfoForm() {
     return (
         <Box>
             {photo && <PhotoCropModal image={photo} opened={opened} onClose={close} onSave={onSave} />}
-            <form onSubmit={form.onSubmit((values) => setGeneralInfo(values))}>
+            <form onSubmit={form.onSubmit((values) => setGeneralInfo(values))} onReset={form.onReset}>
                 <Flex direction='column' gap={10}>
                     <FileInput
                         accept="image/*"
@@ -61,6 +61,7 @@ export default function GeneralInfoForm() {
                     />
                 </Flex>
                 <Group position='right' mt='md'>
+                    <Button type='reset' leftIcon={<IconReload />} variant='outline'>Reset</Button>
                     <Button type='submit' leftIcon={<IconDeviceFloppy />}>Save</Button>
                 </Group>
             </form>

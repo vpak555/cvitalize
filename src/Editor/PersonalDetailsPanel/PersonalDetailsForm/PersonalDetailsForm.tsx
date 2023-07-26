@@ -2,7 +2,7 @@ import { Box, TextInput, Flex, Group, Button } from "@mantine/core";
 import { useForm } from '@mantine/form';
 import { ChangeEvent, useState } from "react";
 import { usePersonalDetailsStore } from "../../../store";
-import { IconDeviceFloppy } from "@tabler/icons-react";
+import { IconDeviceFloppy, IconReload } from "@tabler/icons-react";
 
 export default function PersonalDetailsForm() {
     const { personalDetails, setPersonalDetails } = usePersonalDetailsStore((state) => state);
@@ -24,7 +24,7 @@ export default function PersonalDetailsForm() {
 
     return (
         <Box>
-            <form onSubmit={form.onSubmit((values) => setPersonalDetails(values))}>
+            <form onSubmit={form.onSubmit((values) => setPersonalDetails(values))} onReset={form.onReset}>
                 <Flex direction='column' gap={10}>
                     <TextInput
                         label='Email'
@@ -44,6 +44,7 @@ export default function PersonalDetailsForm() {
                     />
                 </Flex>
                 <Group position='right' mt='md'>
+                    <Button type='reset' leftIcon={<IconReload />} variant='outline'>Reset</Button>
                     <Button type='submit' leftIcon={<IconDeviceFloppy />}>Save</Button>
                 </Group>
             </form>
