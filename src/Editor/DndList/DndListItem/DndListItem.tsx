@@ -10,7 +10,7 @@ const useStyles = createStyles((theme) => ({
         borderRadius: theme.radius.md,
         border: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
             }`,
-        padding: `${theme.spacing.sm} ${theme.spacing.xl}`,
+        padding: `${theme.spacing.sm} ${theme.spacing.sm}`,
         paddingLeft: `calc(${theme.spacing.xl} - ${theme.spacing.md})`, // to offset drag handle
         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.white,
     },
@@ -32,8 +32,7 @@ const useStyles = createStyles((theme) => ({
         justifyContent: 'center',
         height: '100%',
         color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[6],
-        paddingLeft: theme.spacing.md,
-        paddingRight: theme.spacing.md,
+        paddingRight: theme.spacing.sm,
     },
 }));
 
@@ -43,7 +42,7 @@ export default function DndListItem({ item, index, onEdit, onRemove }: DndListIt
     return (
         <Draggable key={item.id} index={index} draggableId={item.id}>
             {(provided, snapshot) => (
-                <div
+                <Flex
                     className={cx(classes.item, { [classes.itemDragging]: snapshot.isDragging })}
                     ref={provided.innerRef}
                     {...provided.draggableProps}
@@ -52,14 +51,14 @@ export default function DndListItem({ item, index, onEdit, onRemove }: DndListIt
                         <IconGripVertical size="1.05rem" stroke={1.5} />
                     </div>
                     <Flex justify='space-between' align='center'>
-                        <Text>{item.title}</Text>
+                        <Text size={14}>{item.title}</Text>
 
                     </Flex>
-                    <Group ml='auto' spacing='xs' >
+                    <Group ml='auto' spacing='xs' style={{ justifyContent: 'center' }}>
                         <ActionIcon size={18} onClick={() => onEdit(item.id)}><IconPencil /></ActionIcon>
                         <CloseButton onClick={() => onRemove(item.id)} />
                     </Group>
-                </div>
+                </Flex>
             )}
         </Draggable >
     );
