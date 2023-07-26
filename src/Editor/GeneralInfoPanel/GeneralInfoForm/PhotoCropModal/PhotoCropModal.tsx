@@ -1,17 +1,18 @@
-import { ActionIcon, Box, Button, Flex, Group, Modal, ModalProps, Slider, Text } from "@mantine/core";
-import { IconDeviceFloppy, IconRotate2, IconRotateClockwise2 } from "@tabler/icons-react";
+import { ActionIcon, Box, Button, FileButton, Flex, Group, Modal, ModalProps, Slider, Text } from "@mantine/core";
+import { IconDeviceFloppy, IconRotate2, IconRotateClockwise2, IconUpload } from "@tabler/icons-react";
 import { useRef, useState, useEffect } from 'react';
 import AvatarEditor from "react-avatar-editor";
 
 type Props = ModalProps & {
-    image: File | string;
+    photo: File | string;
     onSave: (src: string) => void;
 }
 
-export default function PhotoCropModal({ image, opened, onClose, onSave }: Props) {
+export default function PhotoCropModal({ photo, opened, onClose, onSave }: Props) {
     const editorRef = useRef<AvatarEditor>(null);
     const [rotation, setRotation] = useState(0);
     const [zoom, setZoom] = useState(1);
+    const [image, setImage] = useState<File | string>('');
 
     const rotationMarks = [
         { value: -45, label: '-45°' },
@@ -29,9 +30,10 @@ export default function PhotoCropModal({ image, opened, onClose, onSave }: Props
     ];
 
     useEffect(() => {
+        setImage(photo);
         setZoom(1);
         setRotation(0);
-    }, [image]);
+    }, [photo]);
 
     const save = () => {
         if (editorRef) {
@@ -41,6 +43,10 @@ export default function PhotoCropModal({ image, opened, onClose, onSave }: Props
             })
         }
     };
+
+    const upload = (file: File | null) => {
+        setImage(file || '');
+    }
 
     const onRotateLeft = () => {
         setRotation(rotation - 90);
@@ -77,7 +83,10 @@ export default function PhotoCropModal({ image, opened, onClose, onSave }: Props
                         <Slider size={4} min={-45} max={45} marks={rotationMarks} onChange={onRotateChange} />
                     </Box>
                 </Flex>
-                <Group>
+                <Group mt={10}>
+                    <FileButton onChange={upload} accept="image/*">
+                        {(props) => <Button variant='outline' leftIcon={<IconUpload />} {...props}>New</Button>}
+                    </FileButton>
                     <Button type='button' leftIcon={<IconDeviceFloppy />} onClick={save}>Save</Button>
                 </Group>
             </Flex>

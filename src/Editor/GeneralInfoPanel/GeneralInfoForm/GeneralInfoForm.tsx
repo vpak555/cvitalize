@@ -33,7 +33,7 @@ export default function GeneralInfoForm() {
 
     return (
         <Box>
-            {photo && <PhotoCropModal image={photo} opened={opened} onClose={close} onSave={onSave} />}
+            {photo && <PhotoCropModal photo={photo} opened={opened} onClose={close} onSave={onSave} />}
             <form onSubmit={form.onSubmit((values) => setGeneralInfo(values))} onReset={form.onReset}>
                 <Flex direction='column' gap={10}>
                     <FileInput
