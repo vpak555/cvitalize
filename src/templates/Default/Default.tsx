@@ -3,7 +3,7 @@ import HistoryDetail from "./HistoryDetail/HistoryDetail";
 import Section from "./Section/Section";
 import Skills from "./Skills/Skills";
 import './Default.scss';
-import { useEducationsStore, useGeneralInfoStore, useHardSkillsStore, useLanguagesStore, usePersonalDetailsStore, useSoftSkillsStore } from "../../store";
+import { useEducationsStore, useGeneralInfoStore, useHardSkillsStore, useLanguagesStore, usePersonalDetailsStore, useProfExperiencesStore, useSoftSkillsStore } from "../../store";
 import PersonalDetails from "./PersonalDetails/PersonalDetails";
 import { convertDateToString } from '../../utils/utils';
 
@@ -14,6 +14,7 @@ export default function Default() {
     const { hardSkills, showHardSkillExpertise } = useHardSkillsStore((state) => state);
     const { email, phoneNumber, address } = usePersonalDetailsStore((state) => state.personalDetails);
     const { educations } = useEducationsStore((state) => state);
+    const { profExperiences } = useProfExperiencesStore((state) => state);
 
     return (
         <Flex className='cv'>
@@ -66,21 +67,20 @@ export default function Default() {
                             />)}
                     </Section>
                 }
-
-                <Section title='Professional Experience'>
-                    <HistoryDetail
-                        title="Senior Software Engineer"
-                        institution='Tashkent University of Information Technologies'
-                        startDate='Sep 2014'
-                        endDate='Jul 2018'
-                        location='Uzbekistan, Urgench'
-                        description='Tashkent University of Information Technologies
-            Tashkent University of Information Technologies
-            Tashkent University of Information Technologies
-            Tashkent University of Information Technologies
-            Tashkent University of Information Technologies'
-                    />
-                </Section>
+                {profExperiences.length > 0 &&
+                    <Section title='Professional Experience'>
+                        {profExperiences.map((profExperience) =>
+                            <HistoryDetail
+                                key={profExperience.id}
+                                title={profExperience.jobTitle}
+                                institution={profExperience.employer}
+                                startDate={profExperience.startDate && convertDateToString(profExperience.startDate)}
+                                endDate={profExperience.endDate && convertDateToString(profExperience.endDate)}
+                                location={profExperience.location}
+                                description={profExperience.description}
+                            />)}
+                    </Section>
+                }
             </Flex>
         </Flex >
     );

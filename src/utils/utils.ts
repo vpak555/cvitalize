@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import EducationModel from "../models/EducationModel";
 import ListItemModel from "../models/ListItemModel";
+import ProfExperienceModel from "../models/ProfExperienceModel";
 
 export const reorder = <T extends { id: string }>(
   sourceIndex: number,
@@ -38,6 +39,18 @@ export const mapEducationsToListItemArr = (
 
 export const mapEducationToListItem = (item: EducationModel): ListItemModel => {
   return { id: item.id, title: item.school };
+};
+
+export const mapProfExperiencesToListItemArr = (
+  list: ProfExperienceModel[]
+): ListItemModel[] => {
+  return list.map((item) => ({ id: item.id, title: item.employer }));
+};
+
+export const mapProfExperienceToListItem = (
+  item: ProfExperienceModel
+): ListItemModel => {
+  return { id: item.id, title: item.employer };
 };
 
 export const convertDateToString = (date: Date): string => {

@@ -34,7 +34,7 @@ export default function EducationsPanel() {
     }
 
     return (
-        <Panel title="Educations">
+        <Panel title="Education">
             {!showEducationForm && <DndList
                 list={dndEducations}
                 onAdd={onEducationAdd}
