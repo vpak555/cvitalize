@@ -1,5 +1,6 @@
 import { Flex, Title, Text, ThemeIcon } from "@mantine/core";
 import { IconCalendar, IconIdBadge2, IconLocation } from "@tabler/icons-react";
+import parse from "html-react-parser";
 import './HistoryDetail.scss';
 import HistoryDetailModel from "../../../models/HistoryDetailModel";
 
@@ -31,9 +32,11 @@ export default function HistoryDetail({ title, institution, startDate, endDate, 
                     </Title>
                 </Flex>
             </Flex>
-            <Text size={12}>
-                {description}
-            </Text>
+
+            {description && <Text size={12}>
+                {parse(description)}
+            </Text>}
+
         </Flex>
     );
 }

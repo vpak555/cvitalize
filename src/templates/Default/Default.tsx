@@ -3,8 +3,9 @@ import HistoryDetail from "./HistoryDetail/HistoryDetail";
 import Section from "./Section/Section";
 import Skills from "./Skills/Skills";
 import './Default.scss';
-import { useGeneralInfoStore, useHardSkillsStore, useLanguagesStore, usePersonalDetailsStore, useSoftSkillsStore } from "../../store";
+import { useEducationsStore, useGeneralInfoStore, useHardSkillsStore, useLanguagesStore, usePersonalDetailsStore, useSoftSkillsStore } from "../../store";
 import PersonalDetails from "./PersonalDetails/PersonalDetails";
+import { convertDateToString } from '../../utils/utils';
 
 export default function Default() {
     const { profile, fullName, jobTitle, photo } = useGeneralInfoStore((state) => state.generalInfo);
@@ -12,6 +13,7 @@ export default function Default() {
     const { softSkills, showSoftSkillExpertise } = useSoftSkillsStore((state) => state);
     const { hardSkills, showHardSkillExpertise } = useHardSkillsStore((state) => state);
     const { email, phoneNumber, address } = usePersonalDetailsStore((state) => state.personalDetails);
+    const { educations } = useEducationsStore((state) => state);
 
     return (
         <Flex className='cv'>
@@ -50,20 +52,21 @@ export default function Default() {
                         </Text>
                     </Section>
                 }
-                <Section title='Education'>
-                    <HistoryDetail
-                        title="Bachelor"
-                        institution='Tashkent University of Information Technologies'
-                        startDate='Sep 2014'
-                        endDate='Jul 2018'
-                        location='Uzbekistan, Urgench'
-                        description='Tashkent University of Information Technologies
-            Tashkent University of Information Technologies
-            Tashkent University of Information Technologies
-            Tashkent University of Information Technologies
-            Tashkent University of Information Technologies'
-                    />
-                </Section>
+                {educations.length > 0 &&
+                    <Section title='Education'>
+                        {educations.map((education) =>
+                            <HistoryDetail
+                                key={education.id}
+                                title={education.degree}
+                                institution={education.school}
+                                startDate={education.startDate && convertDateToString(education.startDate)}
+                                endDate={education.endDate && convertDateToString(education.endDate)}
+                                location={education.location}
+                                description={education.description}
+                            />)}
+                    </Section>
+                }
+
                 <Section title='Professional Experience'>
                     <HistoryDetail
                         title="Senior Software Engineer"
@@ -79,6 +82,6 @@ export default function Default() {
                     />
                 </Section>
             </Flex>
-        </Flex>
+        </Flex >
     );
 }

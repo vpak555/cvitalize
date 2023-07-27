@@ -1,6 +1,6 @@
 import Panel from "../Panel/Panel";
 
-export default function ProfessionalExperiencePanel() {
+export default function ProfExperiencesPanel() {
     return (
         <Panel title='Professional Experience'>{ }</Panel>
     );

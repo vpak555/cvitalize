@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+import EducationModel from "../models/EducationModel";
 import ListItemModel from "../models/ListItemModel";
 
 export const reorder = <T extends { id: string }>(
@@ -16,10 +18,28 @@ export const reorder = <T extends { id: string }>(
   );
 };
 
-export const mapToListItemArr = <T extends ListItemModel>(list: T[]) => {
+export const mapToListItemArr = <T extends ListItemModel>(
+  list: T[]
+): ListItemModel[] => {
   return list.map((item) => ({ id: item.id, title: item.title }));
 };
 
-export const mapToListItem = <T extends ListItemModel>(item: T) => {
+export const mapToListItem = <T extends ListItemModel>(
+  item: T
+): ListItemModel => {
   return { id: item.id, title: item.title };
+};
+
+export const mapEducationsToListItemArr = (
+  list: EducationModel[]
+): ListItemModel[] => {
+  return list.map((item) => ({ id: item.id, title: item.school }));
+};
+
+export const mapEducationToListItem = (item: EducationModel): ListItemModel => {
+  return { id: item.id, title: item.school };
+};
+
+export const convertDateToString = (date: Date): string => {
+  return dayjs(date).format("MMM YYYY").toString();
 };
