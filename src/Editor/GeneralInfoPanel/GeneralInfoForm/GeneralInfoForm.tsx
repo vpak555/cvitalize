@@ -1,7 +1,7 @@
-import { Box, TextInput, Flex, Textarea, Group, Button, FileInput } from "@mantine/core";
+import { Box, TextInput, Flex, Textarea, Group, Button, FileButton, Avatar, Input, Wrapper } from "@mantine/core";
 import { useForm } from '@mantine/form';
 import { useGeneralInfoStore } from "../../../store";
-import { IconDeviceFloppy, IconReload } from "@tabler/icons-react";
+import { IconDeviceFloppy, IconReload, IconUpload, IconTrash } from "@tabler/icons-react";
 import PhotoCropModal from "./PhotoCropModal/PhotoCropModal";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
@@ -10,6 +10,7 @@ export default function GeneralInfoForm() {
     const { generalInfo, setGeneralInfo } = useGeneralInfoStore((state) => state);
     const [opened, { open, close }] = useDisclosure(false);
     const [photo, setPhoto] = useState<File | null>(null);
+    const [photoSrc, setPhotoSrc] = useState<string | null>(null);
 
     const minInputLength = 2;
     const maxInputLength = 100;
@@ -28,20 +29,38 @@ export default function GeneralInfoForm() {
     }
 
     const onPhotoSave = (src: string) => {
+        setPhotoSrc(src);
         form.setFieldValue('photo', src);
+    }
+
+    const onPhotoDelete = () => {
+        setPhotoSrc(null);
+        form.setFieldValue('photo', '');
+    }
+
+    const onReset = () => {
+        onPhotoDelete();
+        form.onReset();
     }
 
     return (
         <Box>
             {photo && <PhotoCropModal photo={photo} opened={opened} onClose={close} onSave={onPhotoSave} />}
-            <form onSubmit={form.onSubmit((values) => setGeneralInfo(values))} onReset={form.onReset}>
+            <form onSubmit={form.onSubmit((values) => setGeneralInfo(values))} onReset={onReset}>
                 <Flex direction='column' gap={10}>
-                    <FileInput
-                        accept="image/*"
-                        placeholder="photo.jpg"
-                        label="Photo"
-                        onChange={(file) => onPhotoChange(file)}
-                    />
+                    <Input.Wrapper label='Photo'>
+                        <Flex align='center' gap={10}>
+                            <Avatar src={photoSrc} size={60} />
+                            <Flex direction='column'>
+                                <FileButton  onChange={(file) => onPhotoChange(file)} accept="image/*">
+                                    {(props) => <Button size='xs' variant='subtle'  leftIcon={<IconUpload size={12}/>} {...props}>Upload</Button>}
+                                </FileButton>
+                                <Button size='xs' variant='subtle' leftIcon={<IconTrash size={12} />} onClick={onPhotoDelete}>
+                                    Delete
+                                </Button>
+                            </Flex>
+                        </Flex>
+                    </Input.Wrapper>
                     <TextInput
                         label='Full name'
                         placeholder='John Doe'
@@ -65,6 +84,6 @@ export default function GeneralInfoForm() {
                     <Button type='submit' leftIcon={<IconDeviceFloppy />}>Save</Button>
                 </Group>
             </form>
-        </Box>
+        </Box >
     );
 }
