@@ -1,0 +1,13 @@
+.paper {
+  min-height: 27.9cm;
+  width: 21.6cm;
+}
+
+@media print {
+    body * {
+        display: none;
+      }
+  .paper * {
+    display: block;
+  }
+}

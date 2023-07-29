@@ -27,13 +27,13 @@ export default function GeneralInfoForm() {
         open();
     }
 
-    const onSave = (src: string) => {
-        setGeneralInfo({ ...generalInfo, photo: src });
+    const onPhotoSave = (src: string) => {
+        form.setFieldValue('photo', src);
     }
 
     return (
         <Box>
-            {photo && <PhotoCropModal photo={photo} opened={opened} onClose={close} onSave={onSave} />}
+            {photo && <PhotoCropModal photo={photo} opened={opened} onClose={close} onSave={onPhotoSave} />}
             <form onSubmit={form.onSubmit((values) => setGeneralInfo(values))} onReset={form.onReset}>
                 <Flex direction='column' gap={10}>
                     <FileInput

@@ -37,10 +37,9 @@ export default function PhotoCropModal({ photo, opened, onClose, onSave }: Props
 
     const save = () => {
         if (editorRef) {
-            editorRef.current?.getImage().toBlob((blob) => {
-                blob && onSave(URL.createObjectURL(blob));
-                onClose();
-            })
+            const dataUrl = editorRef.current?.getImage().toDataURL();
+            dataUrl && onSave(dataUrl);
+            onClose();
         }
     };
 

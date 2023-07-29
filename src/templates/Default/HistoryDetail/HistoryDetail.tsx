@@ -17,25 +17,27 @@ export default function HistoryDetail({ title, institution, startDate, endDate, 
                         <Title order={6} size={12} weight={500}>{title}</Title>
                     </Flex>
                 }
-                <Flex align='baseline' gap={3}>
+                {startDate && <Flex align='baseline' gap={3}>
                     <ThemeIcon size={12}>
                         <IconCalendar />
                     </ThemeIcon>
                     <Title order={6} size={12} weight={500}>{startDate} - {endDate}</Title>
-                </Flex>
-                <Flex align='baseline' gap={3}>
+                </Flex>}
+                {location && <Flex align='baseline' gap={3}>
                     <ThemeIcon size={12}>
                         <IconLocation />
                     </ThemeIcon>
                     <Title order={6} size={12} weight={500}>
                         {location}
                     </Title>
-                </Flex>
+                </Flex>}
             </Flex>
 
+            <Flex>
             {description && <Text size={12}>
                 {parse(description)}
             </Text>}
+            </Flex>
 
         </Flex>
     );

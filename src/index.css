@@ -33,8 +33,16 @@ h1, h2, h3, h4, h5, h6, p {
 	font-weight: inherit;
 }
 
-ul, ul li {
-	list-style: none;
+ul {
+	list-style-type: square;
+}
+
+ul, ol {
+	list-style-position: inside;
+}
+
+ul li p, ol li p {
+	display: inline-block;
 }
 
 img {
