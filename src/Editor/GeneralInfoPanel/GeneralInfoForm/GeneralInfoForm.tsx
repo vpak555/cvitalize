@@ -4,7 +4,7 @@ import { useGeneralInfoStore } from "../../../store";
 import { IconDeviceFloppy, IconReload, IconUpload, IconTrash } from "@tabler/icons-react";
 import PhotoCropModal from "./PhotoCropModal/PhotoCropModal";
 import { useDisclosure } from "@mantine/hooks";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 export default function GeneralInfoForm() {
     const { generalInfo, setGeneralInfo } = useGeneralInfoStore((state) => state);
@@ -38,9 +38,9 @@ export default function GeneralInfoForm() {
         form.setFieldValue('photo', '');
     }
 
-    const onReset = () => {
+    const onReset = (event: FormEvent<HTMLFormElement>) => {
         onPhotoDelete();
-        form.onReset();
+        form.onReset(event);
     }
 
     return (
