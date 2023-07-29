@@ -9,7 +9,7 @@ import TextEditor from "../../TextEditor/TextEditor";
 
 export default function EducationForm() {
     const { addEducation, editedEducation, updateEducation, setEditedEducation } = useEducationsStore((state) => state);
-    const [description, setDescription] = useState('');
+    const [description, setDescription] = useState(editedEducation?.description || '');
     const setShowEducationForm = useEducationFormStore((state) => state.setShowEducationForm);
     const id = useId();
     const initialValues =
@@ -31,7 +31,7 @@ export default function EducationForm() {
     });
 
     const onSave = (values: EducationFormModel) => {
-
+        console.log(values)
         if (editedEducation) {
             const updatedEducation = { ...editedEducation, ...values, description };
             updateEducation(updatedEducation);
@@ -82,7 +82,7 @@ export default function EducationForm() {
                     />
                     <TextEditor
                         label='Description'
-                        content={editedEducation?.description || description}
+                        content={description}
                         onChange={setDescription}
                     />
                 </Flex>

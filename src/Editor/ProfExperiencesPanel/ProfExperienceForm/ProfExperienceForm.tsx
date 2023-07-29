@@ -9,7 +9,7 @@ import TextEditor from "../../TextEditor/TextEditor";
 
 export default function ProfExperienceForm() {
     const { addProfExperience, editedProfExperience, updateProfExperience, setEditedProfExperience } = useProfExperiencesStore((state) => state);
-    const [description, setDescription] = useState('');
+    const [description, setDescription] = useState(editedProfExperience?.description || '');
     const setShowProfExperienceForm = useProfExperienceFormStore((state) => state.setShowProfExperienceForm);
     const id = useId();
     const initialValues =
@@ -82,7 +82,7 @@ export default function ProfExperienceForm() {
                     />
                     <TextEditor
                         label='Description'
-                        content={editedProfExperience?.description || description}
+                        content={description}
                         onChange={setDescription}
                     />
                 </Flex>
