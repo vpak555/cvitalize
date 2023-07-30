@@ -4,8 +4,10 @@ import { useHardSkillsStore, useHardSkillFormStore } from "../../../store";
 import { isNotEmpty, useForm } from "@mantine/form";
 import { useId } from "react";
 import SkillFormModel from "../../../models/SkillFormModel";
+import { useTranslation } from 'react-i18next';
 
 export default function HardSkillForm() {
+    const { t } = useTranslation();
     const { showHardSkillExpertise, addHardSkill, editedHardSkill, updateHardSkill, setEditedHardSkill } = useHardSkillsStore((state) => state);
     const setShowHardSkillForm = useHardSkillFormStore((state) => state.setShowHardSkillForm);
     const { primaryColor } = useMantineTheme();
@@ -26,7 +28,7 @@ export default function HardSkillForm() {
     const form = useForm({
         initialValues,
         validate: {
-            title: isNotEmpty('Hard skill is required field')
+            title: isNotEmpty(t('required', { field: t('hardSkill') }))
         },
     });
 
@@ -51,13 +53,12 @@ export default function HardSkillForm() {
             <form onSubmit={form.onSubmit((values) => onSave(values))}>
                 <Flex direction='column' gap={10}>
                     <TextInput
-                        label='Hard skill'
-                        placeholder='JavaScript'
+                        label={t('hardSkill')}
                         {...form.getInputProps('title')}
                     />
                     {
                         showHardSkillExpertise &&
-                        <Input.Wrapper label='Expertise'>
+                        <Input.Wrapper label={t('expertise')}>
                             <Rating defaultValue={0} count={10} fractions={2} color={primaryColor}
                                 {...form.getInputProps('level')}
 
@@ -66,9 +67,9 @@ export default function HardSkillForm() {
 
                     }
                 </Flex>
-                <Group position='right' mt='md'>
-                    <Button type='button' leftIcon={<IconX />} variant='outline' onClick={onCancel}>Cancel</Button>
-                    <Button type='submit' leftIcon={<IconDeviceFloppy />}>Save</Button>
+                <Group position='center' mt='md'>
+                    <Button type='button' leftIcon={<IconX />} variant='outline' onClick={onCancel}>{t('cancel')}</Button>
+                    <Button type='submit' leftIcon={<IconDeviceFloppy />}>{t('save')}</Button>
                 </Group>
             </form>
         </Box>

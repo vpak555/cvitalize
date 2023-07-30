@@ -1,5 +1,6 @@
 import { Header as MantineHeader, Title, Flex } from '@mantine/core';
 import ColorSchemeSwitcher from '../ColorSchemeSwitcher/ColorSchemeSwitcher';
+import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
 import DownloadPDF from '../DownloadPDF/DownloadPDF';
 import './Header.scss';
 
@@ -14,6 +15,7 @@ export default function Header() {
                 </Flex>
                 <Flex align='center' gap={20}>
                     <DownloadPDF />
+                    <LanguageSwitcher />
                     <ColorSchemeSwitcher />
                 </Flex>
             </Flex>

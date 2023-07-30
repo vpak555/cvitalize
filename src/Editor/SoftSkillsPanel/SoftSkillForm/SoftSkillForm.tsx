@@ -1,11 +1,13 @@
-import { Box, Button, Flex, Group, Input, Rating, TextInput, useMantineTheme } from "@mantine/core";
-import { IconX, IconDeviceFloppy } from "@tabler/icons-react";
-import { useSoftSkillsStore, useSoftSkillFormStore } from "../../../store";
-import { isNotEmpty, useForm } from "@mantine/form";
-import { useId } from "react";
-import SkillFormModel from "../../../models/SkillFormModel";
+import { Box, Button, Flex, Group, Input, Rating, TextInput, useMantineTheme } from '@mantine/core';
+import { IconX, IconDeviceFloppy } from '@tabler/icons-react';
+import { useSoftSkillsStore, useSoftSkillFormStore } from '../../../store';
+import { isNotEmpty, useForm } from '@mantine/form';
+import { useId } from 'react';
+import SkillFormModel from '../../../models/SkillFormModel';
+import { useTranslation } from 'react-i18next';
 
 export default function SoftSkillForm() {
+    const { t } = useTranslation();
     const { showSoftSkillExpertise, addSoftSkill, editedSoftSkill, updateSoftSkill, setEditedSoftSkill } = useSoftSkillsStore((state) => state);
     const setShowSoftSkillForm = useSoftSkillFormStore((state) => state.setShowSoftSkillForm);
     const { primaryColor } = useMantineTheme();
@@ -26,7 +28,7 @@ export default function SoftSkillForm() {
     const form = useForm({
         initialValues,
         validate: {
-            title: isNotEmpty('Soft skill is required field')
+            title: isNotEmpty(t('required', { field: t('softSkill') }))
         },
     });
 
@@ -51,8 +53,7 @@ export default function SoftSkillForm() {
             <form onSubmit={form.onSubmit((values) => onSave(values))}>
                 <Flex direction='column' gap={10}>
                     <TextInput
-                        label='Soft skill'
-                        placeholder='Creativity'
+                        label={t('softSkill')}
                         {...form.getInputProps('title')}
                     />
                     {
@@ -66,9 +67,9 @@ export default function SoftSkillForm() {
 
                     }
                 </Flex>
-                <Group position='right' mt='md'>
-                    <Button type='button' leftIcon={<IconX />} variant='outline' onClick={onCancel}>Cancel</Button>
-                    <Button type='submit' leftIcon={<IconDeviceFloppy />}>Save</Button>
+                <Group position='center' mt='md'>
+                    <Button type='button' leftIcon={<IconX />} variant='outline' onClick={onCancel}>{t('cancel')}</Button>
+                    <Button type='submit' leftIcon={<IconDeviceFloppy />}>{t('save')}</Button>
                 </Group>
             </form>
         </Box>

@@ -4,8 +4,9 @@ import Section from "./Section/Section";
 import Skills from "./Skills/Skills";
 import './Default.scss';
 import { useEducationsStore, useGeneralInfoStore, useHardSkillsStore, useLanguagesStore, usePersonalDetailsStore, useProfExperiencesStore, useSoftSkillsStore } from "../../store";
-import PersonalDetails from "./PersonalDetails/PersonalDetails";
+import PersonalDetails from './PersonalDetails/PersonalDetails';
 import { convertDateToString } from '../../utils/utils';
+import { useTranslation } from 'react-i18next';
 
 export default function Default() {
     const { profile, fullName, jobTitle, photo } = useGeneralInfoStore((state) => state.generalInfo);
@@ -15,27 +16,27 @@ export default function Default() {
     const { email, phoneNumber, address } = usePersonalDetailsStore((state) => state.personalDetails);
     const { educations } = useEducationsStore((state) => state);
     const { profExperiences } = useProfExperiencesStore((state) => state);
-
+    const { t } = useTranslation();
     return (
         <Flex className='cv'>
             <Flex className='cv__left-column' direction='column' gap={24}>
                 {photo && <Avatar src={photo} radius={50} size={100} />}
-                {(email || phoneNumber || address) && <Section title='Personal Details'>
+                {(email || phoneNumber || address) && <Section title={t('personalDetails')}>
                     <PersonalDetails personalDetails={{ email, phoneNumber, address }} />
                 </Section>}
                 {hardSkills.length > 0 &&
-                    <Section title='Hard Skills'>
+                    <Section title={t('hardSkills')}>
                         <Skills skills={hardSkills} showExpertise={showHardSkillExpertise} />
                     </Section>
                 }
                 {softSkills.length > 0 &&
-                    <Section title='Soft Skills'>
+                    <Section title={t('softSkills')}>
                         <Skills skills={softSkills} showExpertise={showSoftSkillExpertise} />
                     </Section>
                 }
 
                 {languages.length > 0 &&
-                    <Section title='Languages'>
+                    <Section title={t('languages')}>
                         <Skills skills={languages} showExpertise={showLanguageExpertise} />
                     </Section>
                 }
@@ -47,14 +48,14 @@ export default function Default() {
                     <Title order={5} weight={600}>{jobTitle}</Title>
                 </section>
                 {
-                    profile && <Section title='Profile'>
+                    profile && <Section title={t('profile')}>
                         <Text size={12}>
                             {profile}
                         </Text>
                     </Section>
                 }
                 {educations.length > 0 &&
-                    <Section title='Education'>
+                    <Section title={t('education')}>
                         {educations.map((education) =>
                             <HistoryDetail
                                 key={education.id}
@@ -68,7 +69,7 @@ export default function Default() {
                     </Section>
                 }
                 {profExperiences.length > 0 &&
-                    <Section title='Professional Experience'>
+                    <Section title={t('profExperience')}>
                         {profExperiences.map((profExperience) =>
                             <HistoryDetail
                                 key={profExperience.id}

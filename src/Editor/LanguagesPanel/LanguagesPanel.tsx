@@ -1,14 +1,16 @@
-import { Switch } from "@mantine/core";
+import { Switch } from '@mantine/core';
 import { ChangeEvent } from 'react';
-import DragEndModel from "../../models/DragEndModel";
-import { useLanguagesStore, useLanguageFormStore } from "../../store";
-import DndList from "../DndList/DndList";
-import LanguageForm from "./LanguageForm/LanguageForm";
-import { reorder } from "../../utils/utils";
-import Panel from "../Panel/Panel";
-import SkillModel from "../../models/SkillModel";
+import DragEndModel from '../../models/DragEndModel';
+import { useLanguagesStore, useLanguageFormStore } from '../../store';
+import DndList from '../DndList/DndList';
+import LanguageForm from './LanguageForm/LanguageForm';
+import { reorder } from '../../utils/utils';
+import Panel from '../Panel/Panel';
+import SkillModel from '../../models/SkillModel';
+import { useTranslation } from 'react-i18next';
 
 export default function LanguagesPanel() {
+    const { t } = useTranslation();
     const { showLanguageForm, setShowLanguageForm } = useLanguageFormStore((state) => state);
     const { languages, dndLanguages, setLanguages, removeLanguage, setEditedLanguage, getLanguageById, setShowLanguageExpertise } = useLanguagesStore((state) => state);
 
@@ -41,8 +43,8 @@ export default function LanguagesPanel() {
     }
 
     return (
-        <Panel title="Languages">
-            <Switch label='Show expertise' onChange={onShowLanguageExpertise} mb={10} />
+        <Panel title={t('languages')}>
+            <Switch label={t('expertise')} onChange={onShowLanguageExpertise} mb={10} />
             {!showLanguageForm && <DndList
                 list={dndLanguages}
                 onAdd={onLanguageAdd}

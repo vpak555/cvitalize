@@ -1,7 +1,8 @@
-import { ActionIcon, Box, Button, FileButton, Flex, Group, Modal, ModalProps, Slider, Text } from "@mantine/core";
-import { IconDeviceFloppy, IconRotate2, IconRotateClockwise2, IconUpload } from "@tabler/icons-react";
+import { ActionIcon, Box, Button, FileButton, Flex, Group, Modal, ModalProps, Slider, Text } from '@mantine/core';
+import { IconDeviceFloppy, IconRotate2, IconRotateClockwise2, IconUpload } from '@tabler/icons-react';
 import { useRef, useState, useEffect } from 'react';
-import AvatarEditor from "react-avatar-editor";
+import AvatarEditor from 'react-avatar-editor';
+import { useTranslation } from 'react-i18next';
 
 type Props = ModalProps & {
     photo: File | string;
@@ -9,6 +10,7 @@ type Props = ModalProps & {
 }
 
 export default function PhotoCropModal({ photo, opened, onClose, onSave }: Props) {
+    const { t } = useTranslation();
     const editorRef = useRef<AvatarEditor>(null);
     const [rotation, setRotation] = useState(0);
     const [zoom, setZoom] = useState(1);
@@ -66,27 +68,27 @@ export default function PhotoCropModal({ photo, opened, onClose, onSave }: Props
     return (
         <Modal opened={opened} onClose={onClose} centered >
             <Flex direction='column' gap={20} align='center'>
-                <Text>Drag to reposition photo</Text>
+                <Text>{t('dragPhoto')}</Text>
                 <Flex gap={40} align='center'>
                     <ActionIcon onClick={onRotateLeft}><IconRotate2 /></ActionIcon>
                     <AvatarEditor ref={editorRef} image={image} border={0} rotate={rotation} scale={zoom} style={{ margin: '0 auto' }} />
                     <ActionIcon onClick={onRotateRight}><IconRotateClockwise2 /></ActionIcon>
                 </Flex>
                 <Flex direction='column' gap={30} mb={20}>
-                    <Box miw={200} mx="auto">
+                    <Box miw={200} mx='auto'>
                         <Text size={14}>Zoom</Text>
                         <Slider size={4} min={1} max={3} step={0.1} marks={zoomMarks} onChange={onZoomChange} />
                     </Box>
-                    <Box miw={200} mx="auto">
+                    <Box miw={200} mx='auto'>
                         <Text size={14}>Rotate</Text>
                         <Slider size={4} min={-45} max={45} marks={rotationMarks} onChange={onRotateChange} />
                     </Box>
                 </Flex>
                 <Group mt={10}>
-                    <FileButton onChange={upload} accept="image/*">
-                        {(props) => <Button variant='outline' leftIcon={<IconUpload />} {...props}>New</Button>}
+                    <FileButton onChange={upload} accept='image/*'>
+                        {(props) => <Button variant='outline' leftIcon={<IconUpload />} {...props}>{t('new')}</Button>}
                     </FileButton>
-                    <Button type='button' leftIcon={<IconDeviceFloppy />} onClick={save}>Save</Button>
+                    <Button type='button' leftIcon={<IconDeviceFloppy />} onClick={save}>{t('save')}</Button>
                 </Group>
             </Flex>
         </Modal>

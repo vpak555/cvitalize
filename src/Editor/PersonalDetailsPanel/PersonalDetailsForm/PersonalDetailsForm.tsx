@@ -1,17 +1,19 @@
-import { Box, TextInput, Flex, Group, Button } from "@mantine/core";
-import { useForm } from '@mantine/form';
-import { ChangeEvent, useState } from "react";
-import { usePersonalDetailsStore } from "../../../store";
-import { IconDeviceFloppy, IconReload } from "@tabler/icons-react";
+import { Box, TextInput, Flex, Group, Button } from '@mantine/core';
+import { useForm, isEmail } from '@mantine/form';
+import { ChangeEvent, useState } from 'react';
+import { usePersonalDetailsStore } from '../../../store';
+import { IconDeviceFloppy, IconReload } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 
 export default function PersonalDetailsForm() {
+    const { t } = useTranslation();
     const { personalDetails, setPersonalDetails } = usePersonalDetailsStore((state) => state);
     const [phoneNumber, setPhoneNumber] = useState('');
 
     const form = useForm({
         initialValues: personalDetails,
         validate: {
-            email: (value) => (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) || value === '' ? null : 'Invalid email'),
+            email: isEmail(t('invalidEmail'))
         },
     });
 
@@ -27,25 +29,22 @@ export default function PersonalDetailsForm() {
             <form onSubmit={form.onSubmit((values) => setPersonalDetails(values))} onReset={form.onReset}>
                 <Flex direction='column' gap={10}>
                     <TextInput
-                        label='Email'
-                        placeholder='johndoe@email.com'
+                        label={t('email')}
                         {...form.getInputProps('email')}
                     />
                     <TextInput
-                        label='Phone number'
-                        placeholder='+1 (555) 555-5555'
+                        label={t('phoneNumber')}
                         value={phoneNumber}
                         onChange={handlePhoneNumberChange}
                     />
                     <TextInput
-                        label='Address'
-                        placeholder='8313 Lake Rd. Brooklyn, NY 11235'
+                        label={t('address')}
                         {...form.getInputProps('address')}
                     />
                 </Flex>
-                <Group position='right' mt='md'>
-                    <Button type='reset' leftIcon={<IconReload />} variant='outline'>Reset</Button>
-                    <Button type='submit' leftIcon={<IconDeviceFloppy />}>Save</Button>
+                <Group position='center' mt='md'>
+                    <Button type='reset' leftIcon={<IconReload />} variant='outline'>{t('reset')}</Button>
+                    <Button type='submit' leftIcon={<IconDeviceFloppy />}>{t('save')}</Button>
                 </Group>
             </form>
         </Box>

@@ -1,11 +1,13 @@
-import { Box, Button, Flex, Group, Input, Rating, TextInput, useMantineTheme } from "@mantine/core";
-import { IconX, IconDeviceFloppy } from "@tabler/icons-react";
-import { useLanguagesStore, useLanguageFormStore } from "../../../store";
-import { isNotEmpty, useForm } from "@mantine/form";
-import { useId } from "react";
-import SkillFormModel from "../../../models/SkillFormModel";
+import { Box, Button, Flex, Group, Input, Rating, TextInput, useMantineTheme } from '@mantine/core';
+import { IconX, IconDeviceFloppy } from '@tabler/icons-react';
+import { useLanguagesStore, useLanguageFormStore } from '../../../store';
+import { isNotEmpty, useForm } from '@mantine/form';
+import { useId } from 'react';
+import SkillFormModel from '../../../models/SkillFormModel';
+import { useTranslation } from 'react-i18next';
 
 export default function LanguageForm() {
+    const { t } = useTranslation();
     const { showLanguageExpertise, addLanguage, editedLanguage, updateLanguage, setEditedLanguage } = useLanguagesStore((state) => state);
     const setShowLanguageForm = useLanguageFormStore((state) => state.setShowLanguageForm);
     const { primaryColor } = useMantineTheme();
@@ -25,7 +27,7 @@ export default function LanguageForm() {
     const form = useForm({
         initialValues,
         validate: {
-            title: isNotEmpty('Title is required field')
+            title: isNotEmpty(t('required', { field: t('language') }))
         },
     });
 
@@ -51,7 +53,6 @@ export default function LanguageForm() {
                 <Flex direction='column' gap={10}>
                     <TextInput
                         label='Language'
-                        placeholder='Spanish'
                         {...form.getInputProps('title')}
                     />
                     {
@@ -65,9 +66,9 @@ export default function LanguageForm() {
 
                     }
                 </Flex>
-                <Group position='right' mt='md'>
-                    <Button type='button' leftIcon={<IconX />} variant='outline' onClick={onCancel}>Cancel</Button>
-                    <Button type='submit' leftIcon={<IconDeviceFloppy />}>Save</Button>
+                <Group position='center' mt='md'>
+                    <Button type='button' leftIcon={<IconX />} variant='outline' onClick={onCancel}>{t('cancel')}</Button>
+                    <Button type='submit' leftIcon={<IconDeviceFloppy />}>{t('save')}</Button>
                 </Group>
             </form>
         </Box>

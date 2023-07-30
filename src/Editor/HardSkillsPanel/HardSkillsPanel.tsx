@@ -1,14 +1,16 @@
-import { Switch } from "@mantine/core";
-import { ChangeEvent } from "react";
-import DragEndModel from "../../models/DragEndModel";
-import SkillModel from "../../models/SkillModel";
-import { useHardSkillsStore, useHardSkillFormStore } from "../../store";
-import { reorder } from "../../utils/utils";
-import DndList from "../DndList/DndList";
-import HardSkillForm from "../HardSkillsPanel/HardSkillForm/HardSkillForm";
-import Panel from "../Panel/Panel";
+import { Switch } from '@mantine/core';
+import { ChangeEvent } from 'react';
+import DragEndModel from '../../models/DragEndModel';
+import SkillModel from '../../models/SkillModel';
+import { useHardSkillsStore, useHardSkillFormStore } from '../../store';
+import { reorder } from '../../utils/utils';
+import DndList from '../DndList/DndList';
+import HardSkillForm from '../HardSkillsPanel/HardSkillForm/HardSkillForm';
+import Panel from '../Panel/Panel';
+import { useTranslation } from 'react-i18next';
 
 export default function HardSkillsPanel() {
+    const { t } = useTranslation();
     const { setShowHardSkillExpertise } = useHardSkillsStore((state) => state);
     const { showHardSkillForm, setShowHardSkillForm } = useHardSkillFormStore((state) => state);
     const { hardSkills, dndHardSkills, setHardSkills, removeHardSkill, setEditedHardSkill, getHardSkillById } = useHardSkillsStore((state) => state);
@@ -42,8 +44,8 @@ export default function HardSkillsPanel() {
     }
 
     return (
-        <Panel title="Hard Skills">
-            <Switch label='Show expertise' onChange={onShowHardSkillExpertise} mb={10} />
+        <Panel title={t('hardSkills')}>
+            <Switch label={t('expertise')} onChange={onShowHardSkillExpertise} mb={10} />
             {!showHardSkillForm && <DndList
                 list={dndHardSkills}
                 onAdd={onHardSkillAdd}

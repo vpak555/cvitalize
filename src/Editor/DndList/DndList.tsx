@@ -5,8 +5,10 @@ import StrictModeDroppable from './StrictModeDroppable/StrictModeDroppable';
 import DndListItem from './DndListItem/DndListItem';
 import { IconPlus } from '@tabler/icons-react';
 import DndListModel from '../../models/DndListModel';
+import { useTranslation } from 'react-i18next';
 
 export default function DndList({ list, onAdd, onDragEnd, onEdit, onRemove }: DndListModel) {
+  const { t } = useTranslation();
   const [state, handlers] = useListState(list);
 
   useDidUpdate(() => handlers.setState(list), [list]);
@@ -26,8 +28,8 @@ export default function DndList({ list, onAdd, onDragEnd, onEdit, onRemove }: Dn
           </DragDropContext>
         }
       </Flex>
-      <Group position='right' mt='md'>
-        <Button type='button' leftIcon={<IconPlus />} onClick={onAdd}>Add</Button>
+      <Group position='center' mt='md'>
+        <Button type='button' leftIcon={<IconPlus />} onClick={onAdd}>{t('add')}</Button>
       </Group>
     </>
   );
