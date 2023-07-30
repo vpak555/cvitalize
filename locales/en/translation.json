@@ -37,5 +37,8 @@
   "language": "Language",
   "required": "{{field}} is required",
   "endDate>startDate": "End date must be after Start date",
-  "invalidEmail": "Email is invalid"
+  "invalidEmail": "Email is invalid",
+  "present": "Present",
+  "allRightsReserved": "All rights reserved.",
+  "slogan": "Generate your cv easily and for free"
 }
