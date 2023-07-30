@@ -1,12 +1,14 @@
-import DragEndModel from "../../models/DragEndModel";
-import { useProfExperiencesStore, useProfExperienceFormStore } from "../../store";
-import DndList from "../DndList/DndList";
-import ProfExperienceForm from "./ProfExperienceForm/ProfExperienceForm";
-import { reorder } from "../../utils/utils";
-import Panel from "../Panel/Panel";
-import ProfExperienceModel from "../../models/ProfExperienceModel";
+import DragEndModel from '../../models/DragEndModel';
+import { useProfExperiencesStore, useProfExperienceFormStore } from '../../store';
+import DndList from '../DndList/DndList';
+import ProfExperienceForm from './ProfExperienceForm/ProfExperienceForm';
+import { reorder } from '../../utils/utils';
+import Panel from '../Panel/Panel';
+import ProfExperienceModel from '../../models/ProfExperienceModel';
+import { useTranslation } from 'react-i18next';
 
 export default function ProfExperiencesPanel() {
+    const { t } = useTranslation();
     const { showProfExperienceForm, setShowProfExperienceForm } = useProfExperienceFormStore((state) => state);
     const { profExperiences, dndProfExperiences, setProfExperiences, removeProfExperience, setEditedProfExperience, getProfExperienceById } = useProfExperiencesStore((state) => state);
 
@@ -34,7 +36,7 @@ export default function ProfExperiencesPanel() {
     }
 
     return (
-        <Panel title="Professional Experience">
+        <Panel title={t('profExperience')}>
             {!showProfExperienceForm && <DndList
                 list={dndProfExperiences}
                 onAdd={onProfExperienceAdd}

@@ -1,12 +1,14 @@
-import DragEndModel from "../../models/DragEndModel";
-import { useEducationsStore, useEducationFormStore } from "../../store";
-import DndList from "../DndList/DndList";
-import EducationForm from "./EducationForm/EducationForm";
-import { reorder } from "../../utils/utils";
-import Panel from "../Panel/Panel";
-import EducationModel from "../../models/EducationModel";
+import DragEndModel from '../../models/DragEndModel';
+import { useEducationsStore, useEducationFormStore } from '../../store';
+import DndList from '../DndList/DndList';
+import EducationForm from './EducationForm/EducationForm';
+import { reorder } from '../../utils/utils';
+import Panel from '../Panel/Panel';
+import EducationModel from '../../models/EducationModel';
+import { useTranslation } from 'react-i18next';
 
 export default function EducationsPanel() {
+    const { t } = useTranslation();
     const { showEducationForm, setShowEducationForm } = useEducationFormStore((state) => state);
     const { educations, dndEducations, setEducations, removeEducation, setEditedEducation, getEducationById } = useEducationsStore((state) => state);
 
@@ -34,7 +36,7 @@ export default function EducationsPanel() {
     }
 
     return (
-        <Panel title="Education">
+        <Panel title={t('education')}>
             {!showEducationForm && <DndList
                 list={dndEducations}
                 onAdd={onEducationAdd}
