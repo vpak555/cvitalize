@@ -1,4 +1,4 @@
-import { Box, TextInput, Flex, Textarea, Group, Button, FileButton, Avatar, Input, Wrapper } from "@mantine/core";
+import { Box, TextInput, Flex, Textarea, Group, Button, FileButton, Avatar, Input, useMantineTheme } from "@mantine/core";
 import { useForm } from '@mantine/form';
 import { useGeneralInfoStore } from "../../../store";
 import { IconDeviceFloppy, IconReload, IconUpload, IconTrash } from "@tabler/icons-react";
@@ -7,6 +7,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { FormEvent, useState } from "react";
 
 export default function GeneralInfoForm() {
+    const { primaryColor } = useMantineTheme();
     const { generalInfo, setGeneralInfo } = useGeneralInfoStore((state) => state);
     const [opened, { open, close }] = useDisclosure(false);
     const [photo, setPhoto] = useState<File | null>(null);
@@ -50,7 +51,7 @@ export default function GeneralInfoForm() {
                 <Flex direction='column' gap={10}>
                     <Input.Wrapper label='Photo'>
                         <Flex align='center' gap={10}>
-                            <Avatar src={photoSrc} size={60} />
+                            <Avatar src={photoSrc} size={60} color={primaryColor} />
                             <Flex direction='column'>
                                 <FileButton  onChange={(file) => onPhotoChange(file)} accept="image/*">
                                     {(props) => <Button size='xs' variant='subtle'  leftIcon={<IconUpload size={12}/>} {...props}>Upload</Button>}

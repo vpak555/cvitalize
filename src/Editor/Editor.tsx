@@ -6,12 +6,12 @@ import EducationsPanel from "./EducationsPanel/EducationsPanel";
 import HardSkillsPanel from "./HardSkillsPanel/HardSkillsPanel";
 import SoftSkillsPanel from "./SoftSkillsPanel/SoftSkillsPanel";
 import PersonalDetailsPanel from "./PersonalDetailsPanel/PersonalDetailsPanel";
-
+import './Editor.scss';
 
 export default function Editor() {
 
   return (
-    <Accordion variant="contained" w={300}>
+    <Accordion variant="contained" w={300} className='editor'>
       <GeneralInfoPanel />
       <PersonalDetailsPanel />
       <EducationsPanel />
