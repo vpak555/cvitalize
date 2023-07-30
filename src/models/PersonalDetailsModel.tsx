@@ -1,5 +1,7 @@
-import GeneralInfoModel from "./GeneralInfoModel";
-
-type PersonalDetailsModel = Omit<GeneralInfoModel, 'fullName' | 'jobTitle' | 'profile'>;
+type PersonalDetailsModel = {
+    email: string;
+    phoneNumber: string;
+    address: string;
+}
 
 export default PersonalDetailsModel;

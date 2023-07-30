@@ -2,16 +2,16 @@ import { Switch } from "@mantine/core";
 import { ChangeEvent } from "react";
 import DragEndModel from "../../models/DragEndModel";
 import SkillModel from "../../models/SkillModel";
-import { useHardSkills, useHardSkillForm } from "../../store";
+import { useHardSkillsStore, useHardSkillFormStore } from "../../store";
 import { reorder } from "../../utils/utils";
 import DndList from "../DndList/DndList";
 import HardSkillForm from "../HardSkillsPanel/HardSkillForm/HardSkillForm";
 import Panel from "../Panel/Panel";
 
 export default function HardSkillsPanel() {
-    const { setShowHardSkillExpertise } = useHardSkills((state) => state);
-    const { showHardSkillForm, setShowHardSkillForm } = useHardSkillForm((state) => state);
-    const { hardSkills, dndHardSkills, setHardSkills, removeHardSkill, setEditedHardSkill, getHardSkillById } = useHardSkills((state) => state);
+    const { setShowHardSkillExpertise } = useHardSkillsStore((state) => state);
+    const { showHardSkillForm, setShowHardSkillForm } = useHardSkillFormStore((state) => state);
+    const { hardSkills, dndHardSkills, setHardSkills, removeHardSkill, setEditedHardSkill, getHardSkillById } = useHardSkillsStore((state) => state);
 
     const onShowHardSkillExpertise = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.checked;

@@ -1,13 +1,13 @@
 import { Box, Button, Flex, Group, Input, Rating, TextInput, useMantineTheme } from "@mantine/core";
 import { IconX, IconDeviceFloppy } from "@tabler/icons-react";
-import { useHardSkills, useHardSkillForm } from "../../../store";
+import { useHardSkillsStore, useHardSkillFormStore } from "../../../store";
 import { isNotEmpty, useForm } from "@mantine/form";
 import { useId } from "react";
 import SkillFormModel from "../../../models/SkillFormModel";
 
 export default function HardSkillForm() {
-    const { showHardSkillExpertise, addHardSkill, editedHardSkill, updateHardSkill, setEditedHardSkill } = useHardSkills((state) => state);
-    const setShowHardSkillForm = useHardSkillForm((state) => state.setShowHardSkillForm);
+    const { showHardSkillExpertise, addHardSkill, editedHardSkill, updateHardSkill, setEditedHardSkill } = useHardSkillsStore((state) => state);
+    const setShowHardSkillForm = useHardSkillFormStore((state) => state.setShowHardSkillForm);
     const { primaryColor } = useMantineTheme();
     const id = useId();
     const initialValues =

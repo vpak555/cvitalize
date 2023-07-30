@@ -2,16 +2,16 @@ import { Switch } from "@mantine/core";
 import { ChangeEvent } from "react";
 import DragEndModel from "../../models/DragEndModel";
 import SkillModel from "../../models/SkillModel";
-import { useSoftSkills, useSoftSkillForm } from "../../store";
+import { useSoftSkillsStore, useSoftSkillFormStore } from "../../store";
 import { reorder } from "../../utils/utils";
 import DndList from "../DndList/DndList";
 import SoftSkillForm from "../SoftSkillsPanel/SoftSkillForm/SoftSkillForm";
 import Panel from "../Panel/Panel";
 
 export default function SoftSkillsPanel() {
-    const { setShowSoftSkillExpertise } = useSoftSkills((state) => state);
-    const { showSoftSkillForm, setShowSoftSkillForm } = useSoftSkillForm((state) => state);
-    const { softSkills, dndSoftSkills, setSoftSkills, removeSoftSkill, setEditedSoftSkill, getSoftSkillById } = useSoftSkills((state) => state);
+    const { setShowSoftSkillExpertise } = useSoftSkillsStore((state) => state);
+    const { showSoftSkillForm, setShowSoftSkillForm } = useSoftSkillFormStore((state) => state);
+    const { softSkills, dndSoftSkills, setSoftSkills, removeSoftSkill, setEditedSoftSkill, getSoftSkillById } = useSoftSkillsStore((state) => state);
 
     const onShowSoftSkillExpertise = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.checked;

@@ -14,7 +14,7 @@ function App() {
     <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
       <MantineProvider theme={{ fontFamily: 'Montserrat', primaryColor: 'teal', colorScheme }} withGlobalStyles withNormalizeCSS>
         <Header />
-        <Flex justify='space-between' className='container'>
+        <Flex className='container' gap={40}>
           <Editor />
           <CV />
         </Flex>

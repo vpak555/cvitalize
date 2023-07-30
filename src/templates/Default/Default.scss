@@ -1,17 +1,23 @@
 .cv {
-    min-height: 29.7cm;
-    width: 21cm;
-    padding: 48px;
-    gap: 32px;
+  width: 100%;
+  height: 100%;
+  padding: 48px;
+  gap: 32px;
 
-    &__right-column {
-    }
+  &__right-column {
+  }
 
-    &__left-column {
-        flex: 0 0 25%;
-    }
+  &__left-column {
+    flex: 0 0 25%;
+  }
 }
 
 .title {
-    height: 100px;
+  height: 100px;
+}
+
+@media print {
+  .cv {
+    padding: 0;
+  }
 }

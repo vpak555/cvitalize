@@ -12,7 +12,5 @@ export default function PersonalDetails({ personalDetails }: { personalDetails: 
             {phoneNumber && <PersonalDetail detail={phoneNumber} icon={IconPhone} />}
             {address && <PersonalDetail detail={address} icon={IconLocation} />}
         </Flex>
-
-
     );
 }

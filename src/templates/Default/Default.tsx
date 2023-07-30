@@ -3,21 +3,24 @@ import HistoryDetail from "./HistoryDetail/HistoryDetail";
 import Section from "./Section/Section";
 import Skills from "./Skills/Skills";
 import './Default.scss';
-import { useGeneralInfo, useHardSkills, useLanguages, useSoftSkills } from "../../store";
+import { useEducationsStore, useGeneralInfoStore, useHardSkillsStore, useLanguagesStore, usePersonalDetailsStore, useProfExperiencesStore, useSoftSkillsStore } from "../../store";
 import PersonalDetails from "./PersonalDetails/PersonalDetails";
+import { convertDateToString } from '../../utils/utils';
 
 export default function Default() {
-    const { email, phoneNumber, address, profile, fullName, jobTitle } = useGeneralInfo((state) => state.generalInfo);
-    const { languages, showLanguageExpertise } = useLanguages((state) => state);
-    const { softSkills, showSoftSkillExpertise } = useSoftSkills((state) => state);
-    const { hardSkills, showHardSkillExpertise } = useHardSkills((state) => state);
-    const personalDetailsNotEmpty = email || address || phoneNumber;
+    const { profile, fullName, jobTitle, photo } = useGeneralInfoStore((state) => state.generalInfo);
+    const { languages, showLanguageExpertise } = useLanguagesStore((state) => state);
+    const { softSkills, showSoftSkillExpertise } = useSoftSkillsStore((state) => state);
+    const { hardSkills, showHardSkillExpertise } = useHardSkillsStore((state) => state);
+    const { email, phoneNumber, address } = usePersonalDetailsStore((state) => state.personalDetails);
+    const { educations } = useEducationsStore((state) => state);
+    const { profExperiences } = useProfExperiencesStore((state) => state);
 
     return (
         <Flex className='cv'>
             <Flex className='cv__left-column' direction='column' gap={24}>
-                <Avatar src='public/me.jpg' radius={50} size={100} />
-                {personalDetailsNotEmpty && <Section title='Personal Details'>
+                {photo && <Avatar src={photo} radius={50} size={100} />}
+                {(email || phoneNumber || address) && <Section title='Personal Details'>
                     <PersonalDetails personalDetails={{ email, phoneNumber, address }} />
                 </Section>}
                 {hardSkills.length > 0 &&
@@ -50,35 +53,35 @@ export default function Default() {
                         </Text>
                     </Section>
                 }
-                <Section title='Education'>
-                    <HistoryDetail
-                        title="Bachelor"
-                        institution='Tashkent University of Information Technologies'
-                        startDate='Sep 2014'
-                        endDate='Jul 2018'
-                        location='Uzbekistan, Urgench'
-                        description='Tashkent University of Information Technologies
-            Tashkent University of Information Technologies
-            Tashkent University of Information Technologies
-            Tashkent University of Information Technologies
-            Tashkent University of Information Technologies'
-                    />
-                </Section>
-                <Section title='Professional Experience'>
-                    <HistoryDetail
-                        title="Senior Software Engineer"
-                        institution='Tashkent University of Information Technologies'
-                        startDate='Sep 2014'
-                        endDate='Jul 2018'
-                        location='Uzbekistan, Urgench'
-                        description='Tashkent University of Information Technologies
-            Tashkent University of Information Technologies
-            Tashkent University of Information Technologies
-            Tashkent University of Information Technologies
-            Tashkent University of Information Technologies'
-                    />
-                </Section>
+                {educations.length > 0 &&
+                    <Section title='Education'>
+                        {educations.map((education) =>
+                            <HistoryDetail
+                                key={education.id}
+                                title={education.degree}
+                                institution={education.school}
+                                startDate={education.startDate && convertDateToString(education.startDate)}
+                                endDate={education.endDate && convertDateToString(education.endDate) || 'Present'}
+                                location={education.location}
+                                description={education.description}
+                            />)}
+                    </Section>
+                }
+                {profExperiences.length > 0 &&
+                    <Section title='Professional Experience'>
+                        {profExperiences.map((profExperience) =>
+                            <HistoryDetail
+                                key={profExperience.id}
+                                title={profExperience.jobTitle}
+                                institution={profExperience.employer}
+                                startDate={profExperience.startDate && convertDateToString(profExperience.startDate)}
+                                endDate={profExperience.endDate && convertDateToString(profExperience.endDate) || 'Present'}
+                                location={profExperience.location}
+                                description={profExperience.description}
+                            />)}
+                    </Section>
+                }
             </Flex>
-        </Flex>
+        </Flex >
     );
 }

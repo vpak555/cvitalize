@@ -2,9 +2,7 @@ type GeneralInfoModel = {
     fullName: string;
     jobTitle: string;
     profile: string;
-    email: string,
-    phoneNumber: string;
-    address: string;
+    photo: string;
 }
 
 export default GeneralInfoModel;

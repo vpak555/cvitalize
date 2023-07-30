@@ -1,7 +1,7 @@
 type HistoryDetailModel = {
-    title?: string;
+    title: string;
     institution: string;
-    startDate: string;
+    startDate?: string;
     endDate?: string;
     location?: string;
     description?: string;
