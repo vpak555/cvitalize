@@ -4,6 +4,7 @@ import CV from './CV/CV';
 import Editor from './Editor/Editor';
 import Header from './Header/Header';
 import { useState } from 'react';
+import { Footer } from './Footer/Footer';
 
 function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
@@ -18,6 +19,7 @@ function App() {
           <Editor />
           <CV />
         </Flex>
+        <Footer />
       </MantineProvider>
     </ColorSchemeProvider>
   );

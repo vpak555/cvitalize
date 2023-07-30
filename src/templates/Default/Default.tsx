@@ -62,7 +62,7 @@ export default function Default() {
                                 title={education.degree}
                                 institution={education.school}
                                 startDate={education.startDate && convertDateToString(education.startDate)}
-                                endDate={education.endDate && convertDateToString(education.endDate) || 'Present'}
+                                endDate={education.endDate && convertDateToString(education.endDate) || t('present')}
                                 location={education.location}
                                 description={education.description}
                             />)}
@@ -76,7 +76,7 @@ export default function Default() {
                                 title={profExperience.jobTitle}
                                 institution={profExperience.employer}
                                 startDate={profExperience.startDate && convertDateToString(profExperience.startDate)}
-                                endDate={profExperience.endDate && convertDateToString(profExperience.endDate) || 'Present'}
+                                endDate={profExperience.endDate && convertDateToString(profExperience.endDate) || t('present')}
                                 location={profExperience.location}
                                 description={profExperience.description}
                             />)}
