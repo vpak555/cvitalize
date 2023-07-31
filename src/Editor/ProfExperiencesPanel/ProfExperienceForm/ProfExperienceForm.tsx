@@ -36,7 +36,7 @@ export default function ProfExperienceForm() {
             jobTitle: isNotEmpty(t('required', { field: t('jobTitle') })),
             startDate: isNotEmpty(t('required', { field: t('startDate') })),
             endDate: (value, values) =>
-                value === undefined || isDateAfter(values.startDate, value) ? null : t('endDate>startDate'),
+                value === undefined || values.startDate && value && isDateAfter(values.startDate, value) ? null : t('endDate>startDate'),
         }
     });
 

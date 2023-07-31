@@ -1,4 +1,4 @@
-import { ActionIcon, Box, Button, FileButton, Flex, Group, Modal, ModalProps, Slider, Text } from '@mantine/core';
+import { ActionIcon, Box, Button, FileButton, Flex, Modal, ModalProps, Slider, Text } from '@mantine/core';
 import { IconDeviceFloppy, IconRotate2, IconRotateClockwise2, IconUpload } from '@tabler/icons-react';
 import { useRef, useState, useEffect } from 'react';
 import AvatarEditor from 'react-avatar-editor';
