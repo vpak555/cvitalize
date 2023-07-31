@@ -5,6 +5,8 @@ import Editor from './Editor/Editor';
 import Header from './Header/Header';
 import { useState } from 'react';
 import { Footer } from './Footer/Footer';
+import 'dayjs/locale/en';
+import 'dayjs/locale/ru';
 
 function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');

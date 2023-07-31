@@ -8,7 +8,6 @@ import EducationFormModel from '../../../models/EducationFormModel';
 import TextEditor from '../../TextEditor/TextEditor';
 import { useTranslation } from 'react-i18next';
 import { isDateAfter } from '../../../utils/utils';
-import 'dayjs/locale/ru';
 
 export default function EducationForm() {
     const { t, i18n } = useTranslation();

@@ -53,8 +53,8 @@ export const mapProfExperienceToListItem = (
   return { id: item.id, title: item.employer };
 };
 
-export const convertDateToString = (date: Date): string => {
-  return dayjs(date).format("MMM YYYY").toString();
+export const convertDateToString = (locale: string, date: Date): string => {
+  return dayjs(date).locale(locale).format("MMM YYYY").toString();
 };
 
 export const isDateAfter = (startDate: Date, endDate: Date): boolean => {

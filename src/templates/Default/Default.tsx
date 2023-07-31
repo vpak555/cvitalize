@@ -16,7 +16,7 @@ export default function Default() {
     const { email, phoneNumber, address } = usePersonalDetailsStore((state) => state.personalDetails);
     const { educations } = useEducationsStore((state) => state);
     const { profExperiences } = useProfExperiencesStore((state) => state);
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     return (
         <Flex className='cv'>
             <Flex className='cv__left-column' direction='column' gap={24}>
@@ -61,8 +61,8 @@ export default function Default() {
                                 key={education.id}
                                 title={education.degree}
                                 institution={education.school}
-                                startDate={education.startDate && convertDateToString(education.startDate)}
-                                endDate={education.endDate && convertDateToString(education.endDate) || t('present')}
+                                startDate={education.startDate && convertDateToString(i18n.language, education.startDate)}
+                                endDate={education.endDate && convertDateToString(i18n.language, education.endDate) || t('present')}
                                 location={education.location}
                                 description={education.description}
                             />)}
@@ -75,8 +75,8 @@ export default function Default() {
                                 key={profExperience.id}
                                 title={profExperience.jobTitle}
                                 institution={profExperience.employer}
-                                startDate={profExperience.startDate && convertDateToString(profExperience.startDate)}
-                                endDate={profExperience.endDate && convertDateToString(profExperience.endDate) || t('present')}
+                                startDate={profExperience.startDate && convertDateToString(i18n.language, profExperience.startDate)}
+                                endDate={profExperience.endDate && convertDateToString(i18n.language, profExperience.endDate) || t('present')}
                                 location={profExperience.location}
                                 description={profExperience.description}
                             />)}
