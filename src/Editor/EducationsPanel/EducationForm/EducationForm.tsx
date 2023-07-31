@@ -1,15 +1,17 @@
-import { Box, Button, Flex, Group, TextInput } from '@mantine/core';
-import { DateInput } from '@mantine/dates';
+import { Box, Button, Flex, TextInput } from '@mantine/core';
 import { IconX, IconDeviceFloppy } from '@tabler/icons-react';
 import { useEducationsStore, useEducationFormStore } from '../../../store';
-import { useForm } from '@mantine/form';
+import { useForm, isNotEmpty } from '@mantine/form';
+import { MonthPickerInput } from '@mantine/dates';
 import { useId, useState } from 'react';
 import EducationFormModel from '../../../models/EducationFormModel';
 import TextEditor from '../../TextEditor/TextEditor';
 import { useTranslation } from 'react-i18next';
+import { isDateAfter } from '../../../utils/utils';
+import 'dayjs/locale/ru';
 
 export default function EducationForm() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const { addEducation, editedEducation, updateEducation, setEditedEducation } = useEducationsStore((state) => state);
     const [description, setDescription] = useState(editedEducation?.description || '');
     const setShowEducationForm = useEducationFormStore((state) => state.setShowEducationForm);
@@ -30,6 +32,12 @@ export default function EducationForm() {
             };
     const form = useForm({
         initialValues,
+        validate: {
+            school: isNotEmpty(t('required', { field: t('school') })),
+            startDate: isNotEmpty(t('required', { field: t('startDate') })),
+            endDate: (value, values) =>
+                value === undefined || isDateAfter(values.startDate, value) ? null : t('endDate>startDate'),
+        }
     });
 
     const onSave = (values: EducationFormModel) => {
@@ -55,22 +63,29 @@ export default function EducationForm() {
                     <TextInput
                         label={t('school')}
                         {...form.getInputProps('school')}
+                        withAsterisk
                     />
                     <TextInput
                         label={t('degree')}
                         {...form.getInputProps('degree')}
                     />
                     <Flex gap={10}>
-                        <DateInput
+                        <MonthPickerInput
+                            locale={i18n.language}
                             valueFormat='MMM YYYY'
                             label={t('startDate')}
+                            styles={{ root: { width: '100%' } }}
                             {...form.getInputProps('startDate')}
+                            withAsterisk
                         />
-                        <DateInput
+                        <MonthPickerInput
+                            locale={i18n.language}
                             valueFormat='MMM YYYY'
                             label={t('endDate')}
+                            styles={{ root: { width: '100%' } }}
                             {...form.getInputProps('endDate')}
                         />
+
                     </Flex>
                     <TextInput
                         label={t('location')}
@@ -82,10 +97,10 @@ export default function EducationForm() {
                         onChange={setDescription}
                     />
                 </Flex>
-                <Group position='center' mt='md'>
-                    <Button type='button' leftIcon={<IconX />} variant='outline' onClick={onCancel}>{t('cancel')}</Button>
-                    <Button type='submit' leftIcon={<IconDeviceFloppy />}>{t('save')}</Button>
-                </Group>
+                <Flex mt='md' gap={10}>
+                    <Button fullWidth type='button' leftIcon={<IconX />} variant='outline' onClick={onCancel}>{t('cancel')}</Button>
+                    <Button fullWidth type='submit' leftIcon={<IconDeviceFloppy />}>{t('save')}</Button>
+                </Flex>
             </form>
         </Box>
     );

@@ -1,15 +1,16 @@
-import { Box, Button, Flex, Group, TextInput } from '@mantine/core';
-import { DateInput } from '@mantine/dates';
+import { Box, Button, Flex, TextInput } from '@mantine/core';
+import { MonthPickerInput } from '@mantine/dates';
 import { IconX, IconDeviceFloppy } from '@tabler/icons-react';
 import { useProfExperiencesStore, useProfExperienceFormStore } from '../../../store';
-import { useForm } from '@mantine/form';
+import { useForm, isNotEmpty } from '@mantine/form';
 import { useId, useState } from 'react';
 import ProfExperienceFormModel from '../../../models/ProfExperienceFormModel';
 import TextEditor from '../../TextEditor/TextEditor';
 import { useTranslation } from 'react-i18next';
+import { isDateAfter } from '../../../utils/utils';
 
 export default function ProfExperienceForm() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const { addProfExperience, editedProfExperience, updateProfExperience, setEditedProfExperience } = useProfExperiencesStore((state) => state);
     const [description, setDescription] = useState(editedProfExperience?.description || '');
     const setShowProfExperienceForm = useProfExperienceFormStore((state) => state.setShowProfExperienceForm);
@@ -30,64 +31,78 @@ export default function ProfExperienceForm() {
             };
     const form = useForm({
         initialValues,
+        validate: {
+            employer: isNotEmpty(t('required', { field: t('employer') })),
+            jobTitle: isNotEmpty(t('required', { field: t('jobTitle') })),
+            startDate: isNotEmpty(t('required', { field: t('startDate') })),
+            endDate: (value, values) =>
+                value === undefined || isDateAfter(values.startDate, value) ? null : t('endDate>startDate'),
+        }
     });
 
-    const onSave = (values: ProfExperienceFormModel) => {
+const onSave = (values: ProfExperienceFormModel) => {
 
-        if (editedProfExperience) {
-            const updatedProfExperience = { ...editedProfExperience, ...values, description };
-            updateProfExperience(updatedProfExperience);
-            setEditedProfExperience(undefined);
-        } else {
-            addProfExperience({ id, ...values, description });
-        }
-
-        setShowProfExperienceForm(false);
+    if (editedProfExperience) {
+        const updatedProfExperience = { ...editedProfExperience, ...values, description };
+        updateProfExperience(updatedProfExperience);
+        setEditedProfExperience(undefined);
+    } else {
+        addProfExperience({ id, ...values, description });
     }
 
-    const onCancel = () => {
-        setShowProfExperienceForm(false);
-    }
+    setShowProfExperienceForm(false);
+}
 
-    return (
-        <Box>
-            <form onSubmit={form.onSubmit((values) => onSave(values))}>
-                <Flex direction='column' gap={10}>
-                    <TextInput
-                        label={t('employer')}
-                        {...form.getInputProps('employer')}
+const onCancel = () => {
+    setShowProfExperienceForm(false);
+}
+
+return (
+    <Box>
+        <form onSubmit={form.onSubmit((values) => onSave(values))}>
+            <Flex direction='column' gap={10}>
+                <TextInput
+                    label={t('employer')}
+                    {...form.getInputProps('employer')}
+                    withAsterisk
+                />
+                <TextInput
+                    label={t('jobTitle')}
+                    {...form.getInputProps('jobTitle')}
+                    withAsterisk
+                />
+                <Flex gap={10}>
+                    <MonthPickerInput
+                        locale={i18n.language}
+                        valueFormat='MMM YYYY'
+                        label={t('startDate')}
+                        styles={{ root: { width: '100%' } }}
+                        {...form.getInputProps('startDate')}
+                        withAsterisk
                     />
-                    <TextInput
-                        label={t('jobTitle')}
-                        {...form.getInputProps('jobTitle')}
-                    />
-                    <Flex gap={10}>
-                        <DateInput
-                            valueFormat='MMM YYYY'
-                            label={t('startDate')}
-                            {...form.getInputProps('startDate')}
-                        />
-                        <DateInput
-                            valueFormat='MMM YYYY'
-                            label={t('endDate')}
-                            {...form.getInputProps('endDate')}
-                        />
-                    </Flex>
-                    <TextInput
-                        label={t('location')}
-                        {...form.getInputProps('location')}
-                    />
-                    <TextEditor
-                        label={t('description')}
-                        content={description}
-                        onChange={setDescription}
+                    <MonthPickerInput
+                        locale={i18n.language}
+                        valueFormat='MMM YYYY'
+                        label={t('endDate')}
+                        styles={{ root: { width: '100%' } }}
+                        {...form.getInputProps('endDate')}
                     />
                 </Flex>
-                <Group position='center' mt='md'>
-                    <Button type='button' leftIcon={<IconX />} variant='outline' onClick={onCancel}>{t('cancel')}</Button>
-                    <Button type='submit' leftIcon={<IconDeviceFloppy />}>{t('save')}</Button>
-                </Group>
-            </form>
-        </Box>
-    );
+                <TextInput
+                    label={t('location')}
+                    {...form.getInputProps('location')}
+                />
+                <TextEditor
+                    label={t('description')}
+                    content={description}
+                    onChange={setDescription}
+                />
+            </Flex>
+            <Flex mt='md' gap={10}>
+                <Button fullWidth type='button' leftIcon={<IconX />} variant='outline' onClick={onCancel}>{t('cancel')}</Button>
+                <Button fullWidth type='submit' leftIcon={<IconDeviceFloppy />}>{t('save')}</Button>
+            </Flex>
+        </form>
+    </Box>
+);
 }

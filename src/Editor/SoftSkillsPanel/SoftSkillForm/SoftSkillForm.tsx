@@ -67,10 +67,10 @@ export default function SoftSkillForm() {
 
                     }
                 </Flex>
-                <Group position='center' mt='md'>
-                    <Button type='button' leftIcon={<IconX />} variant='outline' onClick={onCancel}>{t('cancel')}</Button>
-                    <Button type='submit' leftIcon={<IconDeviceFloppy />}>{t('save')}</Button>
-                </Group>
+                <Flex mt='md' gap={10}>
+                    <Button fullWidth type='button' leftIcon={<IconX />} variant='outline' onClick={onCancel}>{t('cancel')}</Button>
+                    <Button fullWidth type='submit' leftIcon={<IconDeviceFloppy />}>{t('save')}</Button>
+                </Flex>
             </form>
         </Box>
     );

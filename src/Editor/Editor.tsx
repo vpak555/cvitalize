@@ -11,7 +11,7 @@ import './Editor.scss';
 export default function Editor() {
 
   return (
-    <Accordion variant="contained" w={361} className='editor'>
+    <Accordion variant="contained" w={350} className='editor'>
       <GeneralInfoPanel />
       <PersonalDetailsPanel />
       <EducationsPanel />

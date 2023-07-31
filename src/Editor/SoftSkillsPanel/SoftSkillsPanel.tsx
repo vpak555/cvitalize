@@ -45,7 +45,7 @@ export default function SoftSkillsPanel() {
 
     return (
         <Panel title={t('softSkills')}>
-            <Switch label={t('expertise')} onChange={onShowSoftSkillExpertise} mb={10} />
+            <Switch label={t('showExpertise')} onChange={onShowSoftSkillExpertise} mb={10} />
             {!showSoftSkillForm && <DndList
                 list={dndSoftSkills}
                 onAdd={onSoftSkillAdd}

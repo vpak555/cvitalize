@@ -45,7 +45,7 @@ export default function HardSkillsPanel() {
 
     return (
         <Panel title={t('hardSkills')}>
-            <Switch label={t('expertise')} onChange={onShowHardSkillExpertise} mb={10} />
+            <Switch label={t('showExpertise')} onChange={onShowHardSkillExpertise} mb={10} />
             {!showHardSkillForm && <DndList
                 list={dndHardSkills}
                 onAdd={onHardSkillAdd}

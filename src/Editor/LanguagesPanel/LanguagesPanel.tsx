@@ -44,7 +44,7 @@ export default function LanguagesPanel() {
 
     return (
         <Panel title={t('languages')}>
-            <Switch label={t('expertise')} onChange={onShowLanguageExpertise} mb={10} />
+            <Switch label={t('showExpertise')} onChange={onShowLanguageExpertise} mb={10} />
             {!showLanguageForm && <DndList
                 list={dndLanguages}
                 onAdd={onLanguageAdd}

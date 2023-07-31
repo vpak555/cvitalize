@@ -6,8 +6,6 @@ import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
 import Superscript from '@tiptap/extension-superscript';
 import SubScript from '@tiptap/extension-subscript';
-import OrderedList from '@tiptap/extension-ordered-list';
-import ListItem from '@tiptap/extension-list-item';
 import { Input } from '@mantine/core';
 import { useEffect } from 'react';
 
@@ -27,8 +25,6 @@ export default function TextEditor({ label, content, onChange }: TextEditorProps
             SubScript,
             Highlight,
             TextAlign.configure({ types: ['heading', 'paragraph'] }),
-            OrderedList,
-            ListItem
         ],
         content,
     });
@@ -72,7 +68,7 @@ export default function TextEditor({ label, content, onChange }: TextEditorProps
                     </RichTextEditor.ControlsGroup>
                 </RichTextEditor.Toolbar>
 
-                <RichTextEditor.Content mih={100} />
+                <RichTextEditor.Content mih={150} />
             </RichTextEditor>
         </Input.Wrapper>
 

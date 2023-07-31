@@ -4,6 +4,10 @@
 }
 
 @media print {
+  body {
+    background: white !important;
+  }
+
   #cv {
     border: none;
   }

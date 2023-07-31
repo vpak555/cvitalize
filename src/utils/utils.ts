@@ -56,3 +56,7 @@ export const mapProfExperienceToListItem = (
 export const convertDateToString = (date: Date): string => {
   return dayjs(date).format("MMM YYYY").toString();
 };
+
+export const isDateAfter = (startDate: Date, endDate: Date): boolean => {
+  return endDate > startDate;
+};

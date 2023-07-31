@@ -66,30 +66,30 @@ export default function PhotoCropModal({ photo, opened, onClose, onSave }: Props
     }
 
     return (
-        <Modal opened={opened} onClose={onClose} centered >
-            <Flex direction='column' gap={20} align='center'>
-                <Text>{t('dragPhoto')}</Text>
-                <Flex gap={40} align='center'>
+        <Modal opened={opened} onClose={onClose} centered size={350}>
+            <Flex direction='column' gap={20} >
+                <Text align='center'>{t('dragPhoto')}</Text>
+                <Flex align='center'>
                     <ActionIcon onClick={onRotateLeft}><IconRotate2 /></ActionIcon>
                     <AvatarEditor ref={editorRef} image={image} border={0} rotate={rotation} scale={zoom} style={{ margin: '0 auto' }} />
                     <ActionIcon onClick={onRotateRight}><IconRotateClockwise2 /></ActionIcon>
                 </Flex>
                 <Flex direction='column' gap={30} mb={20}>
                     <Box miw={200} mx='auto'>
-                        <Text size={14}>Zoom</Text>
+                        <Text size={14}>{t('zoom')}</Text>
                         <Slider size={4} min={1} max={3} step={0.1} marks={zoomMarks} onChange={onZoomChange} />
                     </Box>
                     <Box miw={200} mx='auto'>
-                        <Text size={14}>Rotate</Text>
+                        <Text size={14}>{t('rotate')}</Text>
                         <Slider size={4} min={-45} max={45} marks={rotationMarks} onChange={onRotateChange} />
                     </Box>
                 </Flex>
-                <Group mt={10}>
+                <Flex mt={10} gap={10}>
                     <FileButton onChange={upload} accept='image/*'>
-                        {(props) => <Button variant='outline' leftIcon={<IconUpload />} {...props}>{t('new')}</Button>}
+                        {(props) => <Button fullWidth variant='outline' leftIcon={<IconUpload />} {...props}>{t('new')}</Button>}
                     </FileButton>
-                    <Button type='button' leftIcon={<IconDeviceFloppy />} onClick={save}>{t('save')}</Button>
-                </Group>
+                    <Button fullWidth type='button' leftIcon={<IconDeviceFloppy />} onClick={save}>{t('save')}</Button>
+                </Flex>
             </Flex>
         </Modal>
     );

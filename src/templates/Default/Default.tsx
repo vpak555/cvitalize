@@ -20,7 +20,7 @@ export default function Default() {
     return (
         <Flex className='cv'>
             <Flex className='cv__left-column' direction='column' gap={24}>
-                {photo && <Avatar src={photo} radius={50} size={100} />}
+                {photo && <Avatar src={photo} radius={50} size={100} /> || <Flex h={100} />}
                 {(email || phoneNumber || address) && <Section title={t('personalDetails')}>
                     <PersonalDetails personalDetails={{ email, phoneNumber, address }} />
                 </Section>}
