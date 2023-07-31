@@ -94,7 +94,7 @@ export function Footer() {
     const { classes } = useStyles();
 
     return (
-        <footer className={classes.footer}>
+        <footer id='footer' className={classes.footer}>
             <Container className={classes.inner}>
                 <div className={classes.logo}>
                     <Title>CVitalize</Title>

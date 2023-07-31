@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Group, Input, Rating, TextInput, useMantineTheme } from "@mantine/core";
+import { Box, Button, Flex, Input, Rating, TextInput, useMantineTheme } from "@mantine/core";
 import { IconX, IconDeviceFloppy } from "@tabler/icons-react";
 import { useHardSkillsStore, useHardSkillFormStore } from "../../../store";
 import { isNotEmpty, useForm } from "@mantine/form";
@@ -67,10 +67,10 @@ export default function HardSkillForm() {
 
                     }
                 </Flex>
-                <Group position='center' mt='md'>
-                    <Button type='button' leftIcon={<IconX />} variant='outline' onClick={onCancel}>{t('cancel')}</Button>
-                    <Button type='submit' leftIcon={<IconDeviceFloppy />}>{t('save')}</Button>
-                </Group>
+                <Flex mt='md' gap={10}>
+                    <Button fullWidth type='button' leftIcon={<IconX />} variant='outline' onClick={onCancel}>{t('cancel')}</Button>
+                    <Button fullWidth type='submit' leftIcon={<IconDeviceFloppy />}>{t('save')}</Button>
+                </Flex>
             </form>
         </Box>
     );

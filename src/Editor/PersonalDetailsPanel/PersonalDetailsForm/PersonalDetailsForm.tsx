@@ -1,4 +1,4 @@
-import { Box, TextInput, Flex, Group, Button } from '@mantine/core';
+import { Box, TextInput, Flex, Button } from '@mantine/core';
 import { useForm, isEmail } from '@mantine/form';
 import { ChangeEvent, useState } from 'react';
 import { usePersonalDetailsStore } from '../../../store';
@@ -24,13 +24,19 @@ export default function PersonalDetailsForm() {
         setPhoneNumber(filteredValue);
     };
 
+    const onReset = () => {
+        setPhoneNumber('');
+        form.reset();
+    }
+
     return (
         <Box>
-            <form onSubmit={form.onSubmit((values) => setPersonalDetails(values))} onReset={form.onReset}>
+            <form onSubmit={form.onSubmit((values) => setPersonalDetails(values))} onReset={onReset}>
                 <Flex direction='column' gap={10}>
                     <TextInput
                         label={t('email')}
                         {...form.getInputProps('email')}
+                        withAsterisk
                     />
                     <TextInput
                         label={t('phoneNumber')}
@@ -42,10 +48,10 @@ export default function PersonalDetailsForm() {
                         {...form.getInputProps('address')}
                     />
                 </Flex>
-                <Group position='center' mt='md'>
-                    <Button type='reset' leftIcon={<IconReload />} variant='outline'>{t('reset')}</Button>
-                    <Button type='submit' leftIcon={<IconDeviceFloppy />}>{t('save')}</Button>
-                </Group>
+                <Flex mt='md' gap={20}>
+                    <Button fullWidth type='reset' leftIcon={<IconReload />} variant='outline'>{t('reset')}</Button>
+                    <Button fullWidth type='submit' leftIcon={<IconDeviceFloppy />}>{t('save')}</Button>
+                </Flex>
             </form>
         </Box>
     );
