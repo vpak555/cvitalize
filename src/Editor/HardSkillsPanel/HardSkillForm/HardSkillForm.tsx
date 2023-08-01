@@ -55,6 +55,7 @@ export default function HardSkillForm() {
                     <TextInput
                         label={t('hardSkill')}
                         {...form.getInputProps('title')}
+                        withAsterisk
                     />
                     {
                         showHardSkillExpertise &&

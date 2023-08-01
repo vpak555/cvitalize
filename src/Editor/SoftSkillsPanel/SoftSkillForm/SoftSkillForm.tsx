@@ -55,6 +55,7 @@ export default function SoftSkillForm() {
                     <TextInput
                         label={t('softSkill')}
                         {...form.getInputProps('title')}
+                        withAsterisk
                     />
                     {
                         showSoftSkillExpertise &&
